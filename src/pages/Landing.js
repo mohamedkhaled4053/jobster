@@ -1,6 +1,7 @@
 import { Logo } from '../assets/components';
 import main from '../assets/images/main.svg';
 import Wrapper from '../assets/wrappers/LandingPage';
+import {Link} from 'react-router-dom'
 
 export default function Landing() {
   return (
@@ -18,9 +19,9 @@ export default function Landing() {
             fixie raclette taxidermy craft beer. Brunch bitters synth, VHS
             crucifix heirloom meggings bicycle rights.
           </p>
-          <a className="btn btn-hero" href="/register">
+          <Link className="btn btn-hero" to="/register">
             Login/Register
-          </a>
+          </Link>
         </div>
         <img src={main} alt="job hunt" className="img main-img" />
       </div>
