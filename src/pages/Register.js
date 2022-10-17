@@ -4,6 +4,8 @@ import { Logo } from '../components';
 import FormRow from '../components/FormRow';
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import {useDispatch} from 'react-redux'
+import { loginUser, registerUser } from '../features/userSlice';
 
 let initialState = {
   name: '',
@@ -14,6 +16,7 @@ let initialState = {
 
 export default function Register() {
   let [values, setValues] = useState(initialState);
+  let dispatch = useDispatch()
 
   function handleChange(e) {
     let name = e.target.name;
@@ -26,7 +29,13 @@ export default function Register() {
     let { name, email, password, isNewUser } = values;
     if (!email || !password || (isNewUser && !name)) {
       toast.error('Please Fill Out All Fields')
+      return
     }
+    if(isNewUser){
+      dispatch(registerUser())
+      return
+    }
+    dispatch(loginUser())
   }
 
   return (
