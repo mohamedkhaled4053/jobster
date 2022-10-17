@@ -3,20 +3,28 @@ import Wrapper from '../assets/wrappers/RegisterPage';
 import { Logo } from '../components';
 import FormRow from '../components/FormRow';
 
-export default function Register() {
-  let initialState = {
-    name: '',
-    email: '',
-    password: '',
-    isNewUser: false,
-  };
+let initialState = {
+  name: '',
+  email: '',
+  password: '',
+  isNewUser: false,
+};
 
+export default function Register() {
   let [values, setValues] = useState(initialState);
 
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
     setValues({ ...values, [name]: value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    let { name, email, password, isNewUser } = values;
+    if (!email || !password || (isNewUser && !name)) {
+      console.log('please add all');
+    }
   }
 
   return (
@@ -46,7 +54,7 @@ export default function Register() {
           handleChange={handleChange}
         />
 
-        <button type="submit" className="btn btn-block">
+        <button type="submit" className="btn btn-block" onClick={handleSubmit}>
           submit
         </button>
         <button type="button" className="btn btn-block btn-hipster">
