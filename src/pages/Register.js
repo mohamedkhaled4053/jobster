@@ -23,14 +23,16 @@ export default function Register() {
     <Wrapper className="full-page">
       <form className="form">
         <Logo />
-        <h3>Register</h3>
+        <h3>{values.isNewUser ? 'Register' : 'Login'}</h3>
 
-        <FormRow
-          name="name"
-          type="text"
-          value={values.name}
-          handleChange={handleChange}
-        />
+        {values.isNewUser && (
+          <FormRow
+            name="name"
+            type="text"
+            value={values.name}
+            handleChange={handleChange}
+          />
+        )}
         <FormRow
           name="email"
           type="email"
@@ -51,9 +53,16 @@ export default function Register() {
           demo app
         </button>
         <p>
-          Already a member?
-          <button type="button" className="member-btn">
-            Login
+          {values.isNewUser ? 'Already a member?' : 'Not a member yet?'}
+
+          <button
+            type="button"
+            className="member-btn"
+            onClick={() =>
+              setValues({ ...values, isNewUser: !values.isNewUser })
+            }
+          >
+            {values.isNewUser ? 'Login' : 'Register'}
           </button>
         </p>
       </form>
