@@ -1,7 +1,7 @@
-export default function FormRow({ name, type, value, label }) {
+export default function FormRow({ name, type, value, label , handleChange}) {
   return (
     <div className="form-row">
-      <label for="name" className="form-label">
+      <label htmlFor={name} className="form-label">
         {label || name}
       </label>
       <input
@@ -10,6 +10,7 @@ export default function FormRow({ name, type, value, label }) {
         name={name}
         className="form-input"
         value={value}
+        onChange={handleChange}
       />
     </div>
   );
