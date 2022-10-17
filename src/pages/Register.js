@@ -5,7 +5,7 @@ import FormRow from '../components/FormRow';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, registerUser } from '../features/userSlice';
+import { registerAndLogin } from '../features/userSlice';
 
 let initialState = {
   name: '',
@@ -34,10 +34,22 @@ export default function Register() {
       return;
     }
     if (isNewUser) {
-      dispatch(registerUser({ name, email, password }));
+      dispatch(
+        registerAndLogin({
+          user: { name, email, password },
+          process: 'register',
+          message: 'Hello There',
+        })
+      );
       return;
     }
-    dispatch(loginUser({ email, password }));
+    dispatch(
+      registerAndLogin({
+        user: { email, password },
+        process: 'login',
+        message: 'Welcome Back',
+      })
+    );
   }
 
   return (

@@ -7,16 +7,16 @@ let initialState = {
   isLoading: false,
 };
 
-export const registerUser = createAsyncThunk(
+export const registerAndLogin = createAsyncThunk(
   'user/register',
-  async (user, thunkAPI) => {
+  async ({ user, process, message }, thunkAPI) => {
     try {
-      let res = await customFetch.post('/auth/register', user);
-      toast.success(`Hello There ${user.name}`);
-      return res.data;
+      let res = await customFetch.post(`/auth/${process}`, user);
+      return { user: res.data.user, message };
     } catch (error) {
-      toast.error(error.response.data.msg || error.response.data);
-      return thunkAPI.rejectWithValue();
+      return thunkAPI.rejectWithValue(
+        error.response.data.msg || error.response.data
+      );
     }
   }
 );
@@ -30,14 +30,17 @@ let userSlice = createSlice({
   name: 'user',
   initialState,
   extraReducers: {
-    [registerUser.pending]: (state) => {
+    [registerAndLogin.pending]: (state) => {
       state.isLoading = true;
     },
-    [registerUser.fulfilled]: (state, { payload }) => {
-      return { ...state, user: payload.user, isLoading: false };
+    [registerAndLogin.fulfilled]: (state, { payload }) => {
+      let { user, message } = payload;
+      toast.success(`${message} ${user.name}`);
+      return { ...state, user, isLoading: false };
     },
-    [registerUser.rejected]: (state) => {
+    [registerAndLogin.rejected]: (state, { payload }) => {
       state.isLoading = false;
+      toast.error(payload);
     },
   },
 });
