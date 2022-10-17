@@ -1,5 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export const customFetch = axios.create({
-    baseURL: 'https://jobify-prod.herokuapp.com/api/v1/toolkit'
-})
+  baseURL: 'https://jobify-prod.herokuapp.com/api/v1/toolkit',
+});

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { Logo } from '../components';
 import FormRow from '../components/FormRow';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useDispatch ,useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, registerUser } from '../features/userSlice';
 
 let initialState = {
@@ -16,9 +16,9 @@ let initialState = {
 
 export default function Register() {
   let [values, setValues] = useState(initialState);
-  let dispatch = useDispatch()
+  let dispatch = useDispatch();
 
-  let {isLoading} = useSelector((store)=> store.user)
+  let { isLoading } = useSelector((store) => store.user);
 
   function handleChange(e) {
     let name = e.target.name;
@@ -30,14 +30,14 @@ export default function Register() {
     e.preventDefault();
     let { name, email, password, isNewUser } = values;
     if (!email || !password || (isNewUser && !name)) {
-      toast.error('Please Fill Out All Fields')
-      return
+      toast.error('Please Fill Out All Fields');
+      return;
     }
-    if(isNewUser){
-      dispatch(registerUser({name, email,password}))
-      return
+    if (isNewUser) {
+      dispatch(registerUser({ name, email, password }));
+      return;
     }
-    dispatch(loginUser({email,password}))
+    dispatch(loginUser({ email, password }));
   }
 
   return (
@@ -68,10 +68,10 @@ export default function Register() {
         />
 
         <button type="submit" className="btn btn-block" onClick={handleSubmit}>
-          {isLoading ? 'loading...': 'submit'}
+          {isLoading ? 'loading...' : 'submit'}
         </button>
         <button type="button" className="btn btn-block btn-hipster">
-          {isLoading ? 'loading...': 'demo app'}
+          {isLoading ? 'loading...' : 'demo app'}
         </button>
         <p>
           {values.isNewUser ? 'Already a member?' : 'Not a member yet?'}
