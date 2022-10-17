@@ -4,19 +4,21 @@ import { Logo } from '../components';
 import FormRow from '../components/FormRow';
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import {useDispatch} from 'react-redux'
+import {useDispatch ,useSelector} from 'react-redux'
 import { loginUser, registerUser } from '../features/userSlice';
 
 let initialState = {
   name: '',
   email: '',
   password: '',
-  isNewUser: false,
+  isNewUser: true,
 };
 
 export default function Register() {
   let [values, setValues] = useState(initialState);
   let dispatch = useDispatch()
+
+  let {isLoading} = useSelector((store)=> store.user)
 
   function handleChange(e) {
     let name = e.target.name;
@@ -32,10 +34,10 @@ export default function Register() {
       return
     }
     if(isNewUser){
-      dispatch(registerUser())
+      dispatch(registerUser({name, email,password}))
       return
     }
-    dispatch(loginUser())
+    dispatch(loginUser({email,password}))
   }
 
   return (
@@ -66,10 +68,10 @@ export default function Register() {
         />
 
         <button type="submit" className="btn btn-block" onClick={handleSubmit}>
-          submit
+          {isLoading ? 'loading...': 'submit'}
         </button>
         <button type="button" className="btn btn-block btn-hipster">
-          demo app
+          {isLoading ? 'loading...': 'demo app'}
         </button>
         <p>
           {values.isNewUser ? 'Already a member?' : 'Not a member yet?'}
