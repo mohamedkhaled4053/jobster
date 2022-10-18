@@ -19,7 +19,7 @@ export default function SmallSidebar() {
           <header>
             <Logo />
           </header>
-          <SidebarLinks />
+          <SidebarLinks toggleSidebar={()=>dispatch(toggleSidebar())}/>
         </div>
       </div>
     </Wrapper>
