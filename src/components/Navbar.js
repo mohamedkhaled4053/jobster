@@ -3,6 +3,7 @@ import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import Logo from './logo';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSidebar, toggleUserSetting } from '../features/dashboardSlice';
+import { logoutuser } from '../features/userSlice';
 
 export default function Navbar() {
   let dispatch = useDispatch();
@@ -36,7 +37,14 @@ export default function Navbar() {
             <FaCaretDown />
           </button>
           <div className={`dropdown ${isUserSettingOpen && 'show-dropdown'}`}>
-            <button type="button" className="dropdown-btn">
+            <button
+              type="button"
+              className="dropdown-btn"
+              onClick={() => {
+                dispatch(logoutuser());
+                dispatch(toggleUserSetting());
+              }}
+            >
               logout
             </button>
           </div>
