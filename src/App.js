@@ -3,12 +3,20 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Error, Register } from './pages';
 import { ToastContainer } from 'react-toastify';
 import { AddJob, Alljobs, Dashboard, Profile, Stats } from './pages/dashboard';
+import PrivateRoute from './pages/dashboard/PrivateRoute';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard />}>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
           <Route index element={<Stats />} />
           <Route path="add-job" element={<AddJob />} />
           <Route path="all-jobs" element={<Alljobs />} />
