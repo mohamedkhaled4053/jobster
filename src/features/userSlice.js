@@ -8,6 +8,7 @@ let initialState = {
   isLoading: false,
 };
 
+// use Async thunk to login or register
 export const registerAndLogin = createAsyncThunk(
   'user/register',
   async ({ user, process, message }, thunkAPI) => {
@@ -20,11 +21,6 @@ export const registerAndLogin = createAsyncThunk(
       );
     }
   }
-);
-
-export const loginUser = createAsyncThunk(
-  'user/login',
-  async (user, thunkAPI) => {}
 );
 
 let userSlice = createSlice({

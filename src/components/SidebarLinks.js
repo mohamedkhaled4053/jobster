@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import links from '../utils/links';
 
-export default function SidebarLinks({toggleSidebar}) {
+export default function SidebarLinks({ toggleSidebar }) {
   return (
     <div className="nav-links">
       {links.map(({ id, text, path, icon }) => (

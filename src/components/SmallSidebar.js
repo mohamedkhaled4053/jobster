@@ -7,19 +7,22 @@ import { toggleSidebar } from '../features/dashboardSlice';
 
 export default function SmallSidebar() {
   let { isSidebarOpen } = useSelector((store) => store.dashboard);
-  let dispatch = useDispatch()
+  let dispatch = useDispatch();
 
   return (
     <Wrapper>
       <div className={`sidebar-container ${isSidebarOpen && 'show-sidebar'}`}>
         <div className="content">
-          <button className="close-btn" onClick={()=>dispatch(toggleSidebar())}>
+          <button
+            className="close-btn"
+            onClick={() => dispatch(toggleSidebar())}
+          >
             <FaTimes />
           </button>
           <header>
             <Logo />
           </header>
-          <SidebarLinks toggleSidebar={()=>dispatch(toggleSidebar())}/>
+          <SidebarLinks toggleSidebar={() => dispatch(toggleSidebar())} />
         </div>
       </div>
     </Wrapper>

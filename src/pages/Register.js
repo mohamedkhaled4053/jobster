@@ -16,32 +16,28 @@ let initialState = {
 };
 
 export default function Register() {
+  // needed variables
   let [values, setValues] = useState(initialState);
   let dispatch = useDispatch();
   let navigate = useNavigate();
-
   let { isLoading, user } = useSelector((store) => store.user);
 
+  // helper functions
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
     setValues({ ...values, [name]: value });
   }
 
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-    //eslint-disable-next-line
-  }, [user]);
-
   function handleSubmit(e) {
     e.preventDefault();
     let { name, email, password, isNewUser } = values;
+    // check if user provided all required data
     if (!email || !password || (isNewUser && !name)) {
       toast.error('Please Fill Out All Fields');
       return;
     }
+    // if newUser then register
     if (isNewUser) {
       dispatch(
         registerAndLogin({
@@ -52,6 +48,7 @@ export default function Register() {
       );
       return;
     }
+    // if current user then login
     dispatch(
       registerAndLogin({
         user: { email, password },
@@ -60,6 +57,15 @@ export default function Register() {
       })
     );
   }
+
+  // effects
+  // if user loged in then go to dashboard
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+    //eslint-disable-next-line
+  }, [user]);
 
   return (
     <Wrapper className="full-page">
