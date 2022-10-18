@@ -11,6 +11,7 @@ export default function SidebarLinks() {
             isActive ? 'nav-link active' : 'nav-link'
           }
           to={path}
+          end
         >
           <span className="icon">{icon}</span>
           {text}
