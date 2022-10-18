@@ -1,17 +1,17 @@
+import { useSelector } from 'react-redux';
 import Wrapper from '../assets/wrappers/BigSidebar';
+import Logo from './logo';
 import SidebarLinks from './SidebarLinks';
 
-export default function BigSidebar(params) {
+export default function BigSidebar() {
+  let { isSidebarOpen } = useSelector((store) => store.dashboard);
+
   return (
     <Wrapper>
-      <div className="sidebar-container show-sidebar">
+      <div className={`sidebar-container ${isSidebarOpen && 'show-sidebar'}`}>
         <div className="content">
           <header>
-            <img
-              src="/static/media/logo.810e48648353f298a3ea441b8ca95f4f.svg"
-              alt="jobster logo"
-              className="logo"
-            />
+            <Logo />
           </header>
           <SidebarLinks />
         </div>

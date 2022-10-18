@@ -1,12 +1,16 @@
 import Wrapper from '../assets/wrappers/Navbar';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import Logo from './logo';
+import { useDispatch } from 'react-redux';
+import { toggleSidebar } from '../features/dashboardSlice';
 
-export default function Navbar(params) {
+export default function Navbar() {
+  let dispatch = useDispatch()
+
   return (
     <Wrapper>
       <div className="nav-center">
-        <button type="button" className="toggle-btn">
+        <button type="button" className="toggle-btn" onClick={()=>dispatch(toggleSidebar())}>
           <FaAlignLeft />
         </button>
         <div>
