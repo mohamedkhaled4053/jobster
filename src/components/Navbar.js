@@ -2,12 +2,12 @@ import Wrapper from '../assets/wrappers/Navbar';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import Logo from './logo';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleSidebar } from '../features/dashboardSlice';
+import { toggleSidebar, toggleUserSetting } from '../features/dashboardSlice';
 
 export default function Navbar() {
   let dispatch = useDispatch()
-  let {user} = useSelector(store=> store.user)
-  
+  let {user:{user},dashboard:{isUserSettingOpen} } = useSelector(store=> store)
+
   return (
     <Wrapper>
       <div className="nav-center">
@@ -19,12 +19,12 @@ export default function Navbar() {
           <h3 className="logo-text">dashboard</h3>
         </div>
         <div className="btn-container">
-          <button type="button" className="btn">
+          <button type="button" className="btn" onClick={()=>dispatch(toggleUserSetting())}>
             <FaUserCircle />
             {user.name}
             <FaCaretDown />
           </button>
-          <div className="dropdown">
+          <div className={`dropdown ${isUserSettingOpen && 'show-dropdown'}`}>
             <button type="button" className="dropdown-btn">
               logout
             </button>

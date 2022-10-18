@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
     isSidebarOpen : true, 
-    isUseSettingOpen: false
+    isUserSettingOpen: false
 }
 
 let dashboardSlice = createSlice({
@@ -11,10 +11,13 @@ let dashboardSlice = createSlice({
     reducers:{
         toggleSidebar: (state)=>{
             state.isSidebarOpen = !state.isSidebarOpen
+        },
+        toggleUserSetting:(state)=>{
+            state.isUserSettingOpen = !state.isUserSettingOpen
         }
     }
 })
 
 
-export let {toggleSidebar} = dashboardSlice.actions
+export let {toggleSidebar , toggleUserSetting} = dashboardSlice.actions
 export default dashboardSlice.reducer
