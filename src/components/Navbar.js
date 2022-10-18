@@ -5,13 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleSidebar, toggleUserSetting } from '../features/dashboardSlice';
 
 export default function Navbar() {
-  let dispatch = useDispatch()
-  let {user:{user},dashboard:{isUserSettingOpen} } = useSelector(store=> store)
+  let dispatch = useDispatch();
+  let {
+    user: { user },
+    dashboard: { isUserSettingOpen },
+  } = useSelector((store) => store);
 
   return (
     <Wrapper>
       <div className="nav-center">
-        <button type="button" className="toggle-btn" onClick={()=>dispatch(toggleSidebar())}>
+        <button
+          type="button"
+          className="toggle-btn"
+          onClick={() => dispatch(toggleSidebar())}
+        >
           <FaAlignLeft />
         </button>
         <div>
@@ -19,7 +26,11 @@ export default function Navbar() {
           <h3 className="logo-text">dashboard</h3>
         </div>
         <div className="btn-container">
-          <button type="button" className="btn" onClick={()=>dispatch(toggleUserSetting())}>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => dispatch(toggleUserSetting())}
+          >
             <FaUserCircle />
             {user.name}
             <FaCaretDown />
