@@ -79,10 +79,10 @@ export default function Register() {
           handleChange={handleChange}
         />
 
-        <button type="submit" className="btn btn-block" onClick={handleSubmit}>
+        <button type="submit" className="btn btn-block" onClick={handleSubmit} disabled={isLoading}>
           {isLoading ? 'loading...' : 'submit'}
         </button>
-        <button type="button" className="btn btn-block btn-hipster">
+        <button type="button" className="btn btn-block btn-hipster" disabled={isLoading}>
           {isLoading ? 'loading...' : 'demo app'}
         </button>
         <p>
