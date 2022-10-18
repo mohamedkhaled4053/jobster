@@ -6,14 +6,14 @@ export default function Dashboard() {
   return (
     <Wrapper>
       <main className="dashboard">
-        <SmallSidebar/>
-        <BigSidebar/>
-
+        <SmallSidebar />
+        <BigSidebar />
 
         <div>
-          <Navbar/>
+          <Navbar />
           <div className="dashboard-page">
             <h1>dashboard-page</h1>
+            <Outlet />
           </div>
         </div>
       </main>
