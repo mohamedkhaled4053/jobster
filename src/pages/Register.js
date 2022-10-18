@@ -6,25 +6,35 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerAndLogin } from '../features/userSlice';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 let initialState = {
   name: '',
   email: '',
   password: '',
-  isNewUser: true,
+  isNewUser: false,
 };
 
 export default function Register() {
   let [values, setValues] = useState(initialState);
   let dispatch = useDispatch();
+  let navigate = useNavigate();
 
-  let { isLoading } = useSelector((store) => store.user);
+  let { isLoading, user } = useSelector((store) => store.user);
 
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
     setValues({ ...values, [name]: value });
   }
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+    //eslint-disable-next-line
+  }, [user]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -79,10 +89,19 @@ export default function Register() {
           handleChange={handleChange}
         />
 
-        <button type="submit" className="btn btn-block" onClick={handleSubmit} disabled={isLoading}>
+        <button
+          type="submit"
+          className="btn btn-block"
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
           {isLoading ? 'loading...' : 'submit'}
         </button>
-        <button type="button" className="btn btn-block btn-hipster" disabled={isLoading}>
+        <button
+          type="button"
+          className="btn btn-block btn-hipster"
+          disabled={isLoading}
+        >
           {isLoading ? 'loading...' : 'demo app'}
         </button>
         <p>
