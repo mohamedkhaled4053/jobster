@@ -1,5 +1,5 @@
 function addUserToLocalStorage(user) {
-  localStorage.setItem('user', user);
+  localStorage.setItem('user', JSON.stringify(user));
 }
 
 function removeUserFromLocalStorage() {
@@ -7,7 +7,7 @@ function removeUserFromLocalStorage() {
 }
 
 function getUserFromLocalStorage() {
-  return localStorage.getItem('user')
+  return JSON.parse(localStorage.getItem('user'))
 }
 
 export {

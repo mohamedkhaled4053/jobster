@@ -1,12 +1,13 @@
 import Wrapper from '../assets/wrappers/Navbar';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import Logo from './logo';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleSidebar } from '../features/dashboardSlice';
 
 export default function Navbar() {
   let dispatch = useDispatch()
-
+  let {user} = useSelector(store=> store.user)
+  
   return (
     <Wrapper>
       <div className="nav-center">
@@ -20,7 +21,7 @@ export default function Navbar() {
         <div className="btn-container">
           <button type="button" className="btn">
             <FaUserCircle />
-            test user
+            {user.name}
             <FaCaretDown />
           </button>
           <div className="dropdown">
