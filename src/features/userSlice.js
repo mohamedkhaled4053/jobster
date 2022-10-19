@@ -43,6 +43,7 @@ let userSlice = createSlice({
   initialState,
   reducers: {
     logoutuser: (state) => {
+      toast.success(`we will miss you ,${state.user.name}`)
       state.user = null;
       removeUserFromLocalStorage();
     },
