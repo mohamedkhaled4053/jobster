@@ -4,7 +4,7 @@ import { Logo, FormRow } from '../components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerAndLogin } from '../features/userSlice';
+import { userRequest } from '../features/userSlice';
 import { Navigate } from 'react-router-dom';
 
 // this state would only be needed in Register page
@@ -39,7 +39,7 @@ export default function Register() {
     // if newUser then register
     if (isNewUser) {
       dispatch(
-        registerAndLogin({
+        userRequest({
           user: { name, email, password },
           process: 'register',
           message: 'Hello There',
@@ -49,7 +49,7 @@ export default function Register() {
     }
     // if current user then login
     dispatch(
-      registerAndLogin({
+      userRequest({
         user: { email, password },
         process: 'login',
         message: 'Welcome Back',

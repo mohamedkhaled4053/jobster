@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
-import { registerAndLogin } from '../../features/userSlice';
+import { userRequest } from '../../features/userSlice';
 
 export default function Profile() {
-  let {user, isLoading} = useSelector((store) => store.user);
+  let { user, isLoading } = useSelector((store) => store.user);
   let dispatch = useDispatch();
 
   // local state
@@ -33,7 +33,7 @@ export default function Profile() {
       return;
     }
     dispatch(
-      registerAndLogin({
+      userRequest({
         user: { name, lastName, email, location },
         process: 'updateUser',
         message: 'user updated',
@@ -72,7 +72,7 @@ export default function Profile() {
             handleChange={handleChange}
           />
           <button type="submit" className="btn btn-block" disabled={isLoading}>
-            {isLoading? 'loading...':'save changes'}
+            {isLoading ? 'loading...' : 'save changes'}
           </button>
         </div>
       </form>

@@ -13,7 +13,7 @@ let initialState = {
 };
 
 // use Async thunk to login or register
-export const registerAndLogin = createAsyncThunk(
+export const userRequest = createAsyncThunk(
   'user/register',
   async ({ user, process, message }, thunkAPI) => {
     try {
@@ -46,16 +46,16 @@ let userSlice = createSlice({
     },
   },
   extraReducers: {
-    [registerAndLogin.pending]: (state) => {
+    [userRequest.pending]: (state) => {
       state.isLoading = true;
     },
-    [registerAndLogin.fulfilled]: (state, { payload }) => {
+    [userRequest.fulfilled]: (state, { payload }) => {
       let { user, message } = payload;
       addUserToLocalStorage(user);
       toast.success(`${message} ,${user.name}`);
       return { ...state, user, isLoading: false };
     },
-    [registerAndLogin.rejected]: (state, { payload }) => {
+    [userRequest.rejected]: (state, { payload }) => {
       state.isLoading = false;
       toast.error(payload);
     },
