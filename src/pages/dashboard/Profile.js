@@ -1,17 +1,23 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
+import { registerAndLogin } from '../../features/userSlice';
 
 export default function Profile() {
-  let user = useSelector((store) => store.user.user);
+  let {user, isLoading} = useSelector((store) => store.user);
+  let dispatch = useDispatch();
 
+  // local state
   let [userData, setUserData] = useState({
     name: user.name,
     lastName: user.lastName,
     email: user.email,
     location: user.location,
   });
+  // destructure local state to make it easy to write it
+  let { name, lastName, email, location } = userData;
 
   function handleChange(e) {
     let name = e.target.name;
@@ -19,10 +25,25 @@ export default function Profile() {
     setUserData({ ...userData, [name]: value });
   }
 
-  let { name, lastName, email, location } = userData;
+  function handleSubmit(e) {
+    e.preventDefault();
+    // check if user provided all required data
+    if (!name || !lastName || !email || !location) {
+      toast.error('Please Fill Out All Fields');
+      return;
+    }
+    dispatch(
+      registerAndLogin({
+        user: { name, lastName, email, location },
+        process: 'updateUser',
+        message: 'user updated',
+      })
+    );
+  }
+
   return (
     <Wrapper>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h3>profile</h3>
         <div className="form-center">
           <FormRow
@@ -50,8 +71,8 @@ export default function Profile() {
             value={location}
             handleChange={handleChange}
           />
-          <button type="submit" className="btn btn-block">
-            save changes
+          <button type="submit" className="btn btn-block" disabled={isLoading}>
+            {isLoading? 'loading...':'save changes'}
           </button>
         </div>
       </form>

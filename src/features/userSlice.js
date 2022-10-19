@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { customFetch } from '../utils/axios';
 import { toast } from 'react-toastify';
-import { addUserToLocalStorage, getUserFromLocalStorage, removeUserFromLocalStorage } from '../utils/localStorage';
+import {
+  addUserToLocalStorage,
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+} from '../utils/localStorage';
 
 let initialState = {
   user: getUserFromLocalStorage() || null,
@@ -13,7 +17,16 @@ export const registerAndLogin = createAsyncThunk(
   'user/register',
   async ({ user, process, message }, thunkAPI) => {
     try {
-      let res = await customFetch.post(`/auth/${process}`, user);
+      let res;
+      if (process === 'updateUser') {
+        res = await customFetch.patch('/auth/updateUser', user, {
+          headers:{
+            authorization: `Bearer ${thunkAPI.getState().user.user.token}`
+          }
+        })
+      } else {
+        res = await customFetch.post(`/auth/${process}`, user);
+      }
       return { user: res.data.user, message };
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -26,11 +39,11 @@ export const registerAndLogin = createAsyncThunk(
 let userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers:{
-    logoutuser:(state)=>{
-      state.user = null
-      removeUserFromLocalStorage()
-    }
+  reducers: {
+    logoutuser: (state) => {
+      state.user = null;
+      removeUserFromLocalStorage();
+    },
   },
   extraReducers: {
     [registerAndLogin.pending]: (state) => {
@@ -38,8 +51,8 @@ let userSlice = createSlice({
     },
     [registerAndLogin.fulfilled]: (state, { payload }) => {
       let { user, message } = payload;
-      addUserToLocalStorage(user)
-      toast.success(`${message} ${user.name}`);
+      addUserToLocalStorage(user);
+      toast.success(`${message} ,${user.name}`);
       return { ...state, user, isLoading: false };
     },
     [registerAndLogin.rejected]: (state, { payload }) => {
@@ -49,5 +62,5 @@ let userSlice = createSlice({
   },
 });
 
-export let {logoutuser} = userSlice.actions
+export let { logoutuser } = userSlice.actions;
 export default userSlice.reducer;
