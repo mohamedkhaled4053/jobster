@@ -18,13 +18,15 @@ export const userRequest = createAsyncThunk(
   async ({ user, process, message }, thunkAPI) => {
     try {
       let res;
+      // update case
       if (process === 'updateUser') {
         res = await customFetch.patch('/auth/updateUser', user, {
-          headers:{
-            authorization: `Bearer ${thunkAPI.getState().user.user.token}`
-          }
-        })
+          headers: {
+            authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+          },
+        });
       } else {
+        // login and register case
         res = await customFetch.post(`/auth/${process}`, user);
       }
       return { user: res.data.user, message };

@@ -19,6 +19,7 @@ export default function Profile() {
   // destructure local state to make it easy to write it
   let { name, lastName, email, location } = userData;
 
+  // helper funtions
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
