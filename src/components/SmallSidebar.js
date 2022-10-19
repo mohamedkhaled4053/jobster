@@ -11,7 +11,8 @@ export default function SmallSidebar() {
 
   return (
     <Wrapper>
-      <div className={`sidebar-container ${isSidebarOpen && 'show-sidebar'}`}>
+      {/* here I show the small sidebar when isSidebarOpen == false I made this cause I want to show the big sidebar by default so I would let isSidebarOpen == true by default but I want to hide the small sidebar by default*/}
+      <div className={`sidebar-container ${!isSidebarOpen && 'show-sidebar'}`}>
         <div className="content">
           <button
             className="close-btn"
