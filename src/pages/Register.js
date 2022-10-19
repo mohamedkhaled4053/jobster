@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerAndLogin } from '../features/userSlice';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
+// this state would only be needed in Register page
 let initialState = {
   name: '',
   email: '',
@@ -19,7 +19,6 @@ export default function Register() {
   // needed variables
   let [values, setValues] = useState(initialState);
   let dispatch = useDispatch();
-  let navigate = useNavigate();
   let { isLoading, user } = useSelector((store) => store.user);
 
   // helper functions
@@ -58,14 +57,10 @@ export default function Register() {
     );
   }
 
-  // effects
   // if user loged in then go to dashboard
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-    //eslint-disable-next-line
-  }, [user]);
+  if(user){
+    return <Navigate to='/'/>
+  }
 
   return (
     <Wrapper className="full-page">
