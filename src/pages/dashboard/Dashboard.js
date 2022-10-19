@@ -12,7 +12,6 @@ export default function Dashboard() {
         <div>
           <Navbar />
           <div className="dashboard-page">
-            <h1>dashboard-page</h1>
             <Outlet />
           </div>
         </div>
