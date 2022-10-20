@@ -4,23 +4,30 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import FormRowSelect from '../../components/FormRowSelect';
 
-let initialState = {
-  position: '',
-  company: '',
-  jobLocation: '',
-  status: 'pending',
-  jobType: 'full-time',
-};
-
 export default function AddJob() {
+  // get data from store
+  let {
+    job: { isLoading },
+    user: {
+      user: { location  },
+    },
+  } = useSelector((store) => store);
+
   // define the state and destructure it to type less
+  let initialState = {
+    position: '',
+    company: '',
+    jobLocation: location,
+    status: 'pending',
+    jobType: 'full-time',
+  };
   let [jobData, setJobData] = useState(initialState);
   let { position, company, jobLocation, status, jobType } = jobData;
   // define variables
   let jobTypesList = ['full-time', 'part-time', 'remote', 'internship'];
   let statusList = ['pending', 'interview', 'declined'];
-  let {isLoading} = useSelector(store=> store.job)
 
+  // helper funtions
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
@@ -65,11 +72,20 @@ export default function AddJob() {
             handleChange={handleChange}
           />
           <div className="btn-container">
-            <button type="button" className="btn btn-block clear-btn" disabled={isLoading}>
-            {isLoading ? 'loading...': 'clear'}
+            <button
+              type="button"
+              className="btn btn-block clear-btn"
+              disabled={isLoading}
+              onClick={() => setJobData(initialState)}
+            >
+              {isLoading ? 'loading...' : 'clear'}
             </button>
-            <button type="submit" className="btn btn-block submit-btn" disabled={isLoading}>
-              {isLoading ? 'loading...': 'submit'}
+            <button
+              type="submit"
+              className="btn btn-block submit-btn"
+              disabled={isLoading}
+            >
+              {isLoading ? 'loading...' : 'submit'}
             </button>
           </div>
         </div>
