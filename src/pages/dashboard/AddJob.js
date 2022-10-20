@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import FormRowSelect from '../../components/FormRowSelect';
+import { addJob } from '../../features/jobSlice';
 
 export default function AddJob() {
   // get data from store
   let {
     job: { isLoading },
     user: {
-      user: { location  },
+      user: { location },
     },
   } = useSelector((store) => store);
 
@@ -26,6 +28,7 @@ export default function AddJob() {
   // define variables
   let jobTypesList = ['full-time', 'part-time', 'remote', 'internship'];
   let statusList = ['pending', 'interview', 'declined'];
+  let dispatch = useDispatch();
 
   // helper funtions
   function handleChange(e) {
@@ -34,9 +37,24 @@ export default function AddJob() {
     setJobData({ ...jobData, [name]: value });
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    // check if user provided all required data
+    if (!position || !company || !jobLocation || !status || !jobType) {
+      toast.error('please provide all required data');
+      return;
+    }
+    dispatch(addJob({ position, company, jobLocation, status, jobType }));
+    clearJobData();
+  }
+
+  function clearJobData() {
+    setJobData(initialState);
+  }
+
   return (
     <Wrapper>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h3>add job</h3>
         <div className="form-center">
           <FormRow
@@ -52,7 +70,7 @@ export default function AddJob() {
             handleChange={handleChange}
           />
           <FormRow
-            name="jobLoction"
+            name="jobLocation"
             type="text"
             value={jobLocation}
             labelText="job location"
@@ -76,7 +94,7 @@ export default function AddJob() {
               type="button"
               className="btn btn-block clear-btn"
               disabled={isLoading}
-              onClick={() => setJobData(initialState)}
+              onClick={clearJobData}
             >
               {isLoading ? 'loading...' : 'clear'}
             </button>
