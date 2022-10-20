@@ -6,7 +6,7 @@ export default function FormRowSelect({ name, value, labelText, handleChange, li
       </label>
       <select name={name} id={name} className="form-select" value={value} onChange={handleChange}>
         {list.map(option=>
-          <option value={option}>{option}</option>)}
+          <option key={option} value={option}>{option}</option>)}
       </select>
     </div>
   );
