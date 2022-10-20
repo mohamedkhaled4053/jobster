@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import FormRowSelect from '../../components/FormRowSelect';
@@ -18,6 +19,7 @@ export default function AddJob() {
   // define variables
   let jobTypesList = ['full-time', 'part-time', 'remote', 'internship'];
   let statusList = ['pending', 'interview', 'declined'];
+  let {isLoading} = useSelector(store=> store.job)
 
   function handleChange(e) {
     let name = e.target.name;
@@ -63,11 +65,11 @@ export default function AddJob() {
             handleChange={handleChange}
           />
           <div className="btn-container">
-            <button type="button" className="btn btn-block clear-btn">
-              clear
+            <button type="button" className="btn btn-block clear-btn" disabled={isLoading}>
+            {isLoading ? 'loading...': 'clear'}
             </button>
-            <button type="submit" className="btn btn-block submit-btn">
-              submit
+            <button type="submit" className="btn btn-block submit-btn" disabled={isLoading}>
+              {isLoading ? 'loading...': 'submit'}
             </button>
           </div>
         </div>
