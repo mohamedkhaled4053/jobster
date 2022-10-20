@@ -14,7 +14,7 @@ let initialState = {
 
 // use Async thunk to login or register
 export const userRequest = createAsyncThunk(
-  'user/register',
+  'user/useRequest',
   async ({ user, process, message }, thunkAPI) => {
     try {
       let res;
