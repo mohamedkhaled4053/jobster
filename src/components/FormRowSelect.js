@@ -4,7 +4,7 @@ export default function FormRowSelect({ name, value, labelText, handleChange, li
       <label htmlFor={name} className="form-label">
         {labelText || name}
       </label>
-      <select name={name} id={name} className="form-select" value={value}>
+      <select name={name} id={name} className="form-select" value={value} onChange={handleChange}>
         {list.map(option=>
           <option value={option}>{option}</option>)}
       </select>
