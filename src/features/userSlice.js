@@ -39,8 +39,14 @@ let userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    logoutuser: (state) => {
-      toast.success(`we will miss you ,${state.user.name}`);
+    logoutuser: (state, {payload}) => {
+      // if payload exist then alert an error with payload content
+      // else just say goodbye to the user
+      if (payload) {
+        toast.error(payload);
+      } else {
+        toast.success(`we will miss you ,${state.user.name}`);
+      }
       state.user = null;
       removeUserFromLocalStorage();
     },
