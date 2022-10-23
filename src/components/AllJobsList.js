@@ -7,7 +7,7 @@ export default function AllJobsList() {
   return (
     <Wrapper>
       <h5>35 jobs found</h5>
-      <div class="jobs">
+      <div className="jobs">
         <JobItem />
         <JobItem />
         <JobItem />

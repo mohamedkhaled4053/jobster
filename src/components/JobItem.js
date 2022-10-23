@@ -6,25 +6,25 @@ export default function JobItem() {
   return (
     <Wrapper>
       <header>
-        <div class="main-icon">z</div>
-        <div class="info">
+        <div className="main-icon">z</div>
+        <div className="info">
           <h5>zzzzzzzz</h5>
           <p>zzzzzzzz</p>
         </div>
       </header>
-      <div class="content">
-        <div class="content-center">
+      <div className="content">
+        <div className="content-center">
           <JobInfo />
           <JobInfo />
           <JobInfo />
-          <div class="status pending">pending</div>
+          <div className="status pending">pending</div>
         </div>
         <footer>
-          <div class="actions">
-            <a class="btn edit-btn" href="/add-job" data-ur1313m3t="true">
+          <div className="actions">
+            <a className="btn edit-btn" href="/add-job" data-ur1313m3t="true">
               Edit
             </a>
-            <button type="button" class="btn delete-btn">
+            <button type="button" className="btn delete-btn">
               delete
             </button>
           </div>

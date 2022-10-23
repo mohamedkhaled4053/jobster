@@ -8,9 +8,9 @@ export default function SearchJobFrom() {
 
   return (
     <Wrapper>
-      <form class="form">
+      <form className="form">
         <h4>search form</h4>
-        <div class="form-center">
+        <div className="form-center">
           <FormRow
             name="search"
             type="text"
@@ -36,7 +36,7 @@ export default function SearchJobFrom() {
             handleChange={handleChange}
           />
 
-          <button class="btn btn-block btn-danger">clear filters</button>
+          <button className="btn btn-block btn-danger">clear filters</button>
         </div>
       </form>
     </Wrapper>
