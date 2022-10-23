@@ -7,6 +7,7 @@ import {
   removeUserFromLocalStorage,
 } from '../utils/localStorage';
 import authHeader from '../utils/authHeader';
+import checkForUnauthorized from '../utils/checkForUnauthorized';
 
 let initialState = {
   user: getUserFromLocalStorage() || null,
@@ -28,9 +29,7 @@ export const userRequest = createAsyncThunk(
       }
       return { user: res.data.user, message };
     } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response.data.msg || error.response.data
-      );
+      return checkForUnauthorized(error,thunkAPI)
     }
   }
 );

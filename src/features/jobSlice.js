@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
-import { logoutuser } from './userSlice';
+import checkForUnauthorized from '../utils/checkForUnauthorized';
+
 
 let initialState = {
   isLoading: false,
@@ -15,13 +16,8 @@ export let addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
     return res.data;
   } catch (error) {
     // if error is because user unauthorized then logout
-    if (error.response.status === 401) {
-      thunkAPI.dispatch(logoutuser('unauthorized! please login'))
-      return thunkAPI.rejectWithValue()
-    }
-    return thunkAPI.rejectWithValue(
-      error.response.data.msg || error.response.data
-    );
+    // else reject normally
+    return checkForUnauthorized(error,thunkAPI)
   }
 });
 
