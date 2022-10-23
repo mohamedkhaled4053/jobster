@@ -6,6 +6,7 @@ import {
   getUserFromLocalStorage,
   removeUserFromLocalStorage,
 } from '../utils/localStorage';
+import authHeader from '../utils/authHeader';
 
 let initialState = {
   user: getUserFromLocalStorage() || null,
@@ -20,11 +21,7 @@ export const userRequest = createAsyncThunk(
       let res;
       // update case
       if (process === 'updateUser') {
-        res = await customFetch.patch('/auth/updateUser', user, {
-          headers: {
-            authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-          },
-        });
+        res = await customFetch.patch('/auth/updateUser', user, authHeader(thunkAPI));
       } else {
         // login and register case
         res = await customFetch.post(`/auth/${process}`, user);
@@ -43,7 +40,7 @@ let userSlice = createSlice({
   initialState,
   reducers: {
     logoutuser: (state) => {
-      toast.success(`we will miss you ,${state.user.name}`)
+      toast.success(`we will miss you ,${state.user.name}`);
       state.user = null;
       removeUserFromLocalStorage();
     },
