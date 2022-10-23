@@ -4,6 +4,7 @@ import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
 import checkForUnauthorized from '../utils/checkForUnauthorized';
 
+// initial data alone to deal with it without dealing with loading state if needed
 let initialJobData = {
   position: '',
   company: '',
@@ -17,6 +18,7 @@ let initialState = {
   ...initialJobData,
 };
 
+// asynk thunk
 export let addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
   try {
     let res = await customFetch.post('/jobs', job, authHeader(thunkAPI));

@@ -44,10 +44,12 @@ export default function AddJob() {
     dispatch(clearJobData());
   }
 
-  useEffect(()=>{
-    dispatch(changeJobData({name:'jobLocation', value: user.location}))
+  // effects
+  // use user location as default jobLocation
+  useEffect(() => {
+    dispatch(changeJobData({ name: 'jobLocation', value: user.location }));
     // eslint-disable-next-line
-  },[])
+  }, []);
 
   return (
     <Wrapper>
