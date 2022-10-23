@@ -1,30 +1,13 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import FormRowSelect from '../../components/FormRowSelect';
-import { addJob } from '../../features/newJobSlice';
+import { addJob, changeJobData, clearJobData } from '../../features/newJobSlice';
 
 export default function AddJob() {
   // get data from store
-  let {
-    job: { isLoading },
-    user: {
-      user: { location },
-    },
-  } = useSelector((store) => store);
-
-  // define the state and destructure it to type less
-  let initialState = {
-    position: '',
-    company: '',
-    jobLocation: location,
-    status: 'pending',
-    jobType: 'full-time',
-  };
-  let [jobData, setJobData] = useState(initialState);
-  let { position, company, jobLocation, status, jobType } = jobData;
+  let {isLoading, position, company, jobLocation, status, jobType} = useSelector(store => store.newJob)
   // define variables
   let jobTypesList = ['full-time', 'part-time', 'remote', 'internship'];
   let statusList = ['pending', 'interview', 'declined'];
@@ -34,7 +17,7 @@ export default function AddJob() {
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-    setJobData({ ...jobData, [name]: value });
+    dispatch(changeJobData({name,value}))
   }
 
   function handleSubmit(e) {
@@ -45,11 +28,11 @@ export default function AddJob() {
       return;
     }
     dispatch(addJob({ position, company, jobLocation, status, jobType }));
-    clearJobData();
+    clearInputs();
   }
 
-  function clearJobData() {
-    setJobData(initialState);
+  function clearInputs() {
+    dispatch(clearJobData())
   }
 
   return (
@@ -94,7 +77,7 @@ export default function AddJob() {
               type="button"
               className="btn btn-block clear-btn"
               disabled={isLoading}
-              onClick={clearJobData}
+              onClick={clearInputs}
             >
               {isLoading ? 'loading...' : 'clear'}
             </button>

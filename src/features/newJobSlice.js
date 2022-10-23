@@ -3,11 +3,20 @@ import { toast } from 'react-toastify';
 import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
 import checkForUnauthorized from '../utils/checkForUnauthorized';
+import { getUserFromLocalStorage } from '../utils/localStorage';
 
+let initialJobData = {
+  position: '',
+  company: '',
+  jobLocation: getUserFromLocalStorage().location,
+  status: 'pending',
+  jobType: 'full-time',
+};
 
 let initialState = {
   isLoading: false,
   jobs: [],
+  ...initialJobData,
 };
 
 export let addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
@@ -17,13 +26,21 @@ export let addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
   } catch (error) {
     // if error is because user unauthorized then logout
     // else reject normally
-    return checkForUnauthorized(error,thunkAPI)
+    return checkForUnauthorized(error, thunkAPI);
   }
 });
 
 let jobSlice = createSlice({
   name: 'job',
   initialState,
+  reducers: {
+    changeJobData: (state, { payload: { name, value } }) => {
+      state[name] = value;
+    },
+    clearJobData: (state) => {
+      return { ...state, ...initialJobData };
+    },
+  },
   extraReducers: {
     [addJob.pending]: (state) => {
       state.isLoading = true;
@@ -39,4 +56,5 @@ let jobSlice = createSlice({
   },
 });
 
+export let { changeJobData, clearJobData } = jobSlice.actions;
 export default jobSlice.reducer;
