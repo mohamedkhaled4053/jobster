@@ -1,8 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import allJobsReducer from './features/allJobsSlice';
-import dashboardReducer from './features/dashboardSlice';
-import newJobReducer from './features/newJobSlice';
-import userReducer from './features/userSlice';
+import {allJobsReducer, dashboardReducer, newJobReducer, userReducer} from './features'
 
 const store = configureStore({
   reducer: {
