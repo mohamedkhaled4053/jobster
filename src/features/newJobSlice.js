@@ -3,19 +3,17 @@ import { toast } from 'react-toastify';
 import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
 import checkForUnauthorized from '../utils/checkForUnauthorized';
-import { getUserFromLocalStorage } from '../utils/localStorage';
 
 let initialJobData = {
   position: '',
   company: '',
-  jobLocation: getUserFromLocalStorage().location,
+  jobLocation: '',
   status: 'pending',
   jobType: 'full-time',
 };
 
 let initialState = {
   isLoading: false,
-  jobs: [],
   ...initialJobData,
 };
 

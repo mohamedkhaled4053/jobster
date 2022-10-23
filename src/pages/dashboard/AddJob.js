@@ -1,13 +1,22 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import FormRowSelect from '../../components/FormRowSelect';
-import { addJob, changeJobData, clearJobData } from '../../features/newJobSlice';
+import {
+  addJob,
+  changeJobData,
+  clearJobData,
+} from '../../features/newJobSlice';
 
 export default function AddJob() {
   // get data from store
-  let {isLoading, position, company, jobLocation, status, jobType} = useSelector(store => store.newJob)
+  let {
+    user: { user },
+    newJob: { isLoading, position, company, jobLocation, status, jobType },
+  } = useSelector((store) => store);
+
   // define variables
   let jobTypesList = ['full-time', 'part-time', 'remote', 'internship'];
   let statusList = ['pending', 'interview', 'declined'];
@@ -17,7 +26,7 @@ export default function AddJob() {
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-    dispatch(changeJobData({name,value}))
+    dispatch(changeJobData({ name, value }));
   }
 
   function handleSubmit(e) {
@@ -32,8 +41,13 @@ export default function AddJob() {
   }
 
   function clearInputs() {
-    dispatch(clearJobData())
+    dispatch(clearJobData());
   }
+
+  useEffect(()=>{
+    dispatch(changeJobData({name:'jobLocation', value: user.location}))
+    // eslint-disable-next-line
+  },[])
 
   return (
     <Wrapper>
