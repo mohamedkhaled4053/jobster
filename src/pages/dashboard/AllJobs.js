@@ -1,3 +1,11 @@
+import AllJobsList from '../../components/AllJobsList';
+import SearchJobFrom from '../../components/SearchJobFrom';
+
 export default function Alljob() {
-    return <h1> Alljob</h1>
+  return (
+    <>
+      <SearchJobFrom />
+      <AllJobsList />
+    </>
+  );
 }
