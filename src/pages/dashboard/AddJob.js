@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import FormRowSelect from '../../components/FormRowSelect';
-import { addJob } from '../../features/jobSlice';
+import { addJob } from '../../features/newJobSlice';
 
 export default function AddJob() {
   // get data from store
