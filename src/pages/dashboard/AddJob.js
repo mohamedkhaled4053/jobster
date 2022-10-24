@@ -5,26 +5,13 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import Btn from '../../components/Btn';
 import FormRowSelect from '../../components/FormRowSelect';
-import {
-  addJob,
-  cancelEdit,
-  changeJobData,
-  clearJobData,
-} from '../../features/newJobSlice';
+import { addJob, cancelEdit, changeJobData, clearJobData } from '../../features/newJobSlice';
 
 export default function AddJob() {
   // get data from store
   let {
     user: { user },
-    newJob: {
-      isLoading,
-      position,
-      company,
-      jobLocation,
-      status,
-      jobType,
-      isEdit,
-    },
+    newJob: { isLoading, position, company, jobLocation, status, jobType, isEdit },
   } = useSelector((store) => store);
 
   // define variables
@@ -58,27 +45,17 @@ export default function AddJob() {
   // effects
   // use user location as default jobLocation
   useEffect(() => {
-    clearInputs()
+    clearInputs();
     // eslint-disable-next-line
   }, []);
 
   return (
     <Wrapper>
       <form className="form">
-        <h3>{isEdit ? 'edit job': 'add job'}</h3>
+        <h3>{isEdit ? 'edit job' : 'add job'}</h3>
         <div className="form-center">
-          <FormRow
-            name="position"
-            type="text"
-            value={position}
-            handleChange={handleChange}
-          />
-          <FormRow
-            name="company"
-            type="text"
-            value={company}
-            handleChange={handleChange}
-          />
+          <FormRow name="position" type="text" value={position} handleChange={handleChange} />
+          <FormRow name="company" type="text" value={company} handleChange={handleChange} />
           <FormRow
             name="jobLocation"
             type="text"
@@ -101,17 +78,9 @@ export default function AddJob() {
           />
           <div className="btn-container">
             <Btn name="clear" isLoading={isLoading} handleClick={clearInputs} />
-            <Btn
-              name="submit"
-              isLoading={isLoading}
-              handleClick={handleSubmit}
-            />
+            <Btn name="submit" isLoading={isLoading} handleClick={handleSubmit} />
             {isEdit && (
-              <Btn
-                name="cancel"
-                isLoading={isLoading}
-                handleClick={() => dispatch(cancelEdit())}
-              />
+              <Btn name="cancel" isLoading={isLoading} handleClick={() => dispatch(cancelEdit())} />
             )}
           </div>
         </div>

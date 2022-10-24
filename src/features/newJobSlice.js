@@ -15,7 +15,7 @@ let initialJobData = {
 
 let initialState = {
   isLoading: false,
-  isEdit : false ,
+  isEdit: false,
   ...initialJobData,
 };
 
@@ -41,12 +41,12 @@ let jobSlice = createSlice({
     clearJobData: (state) => {
       return { ...state, ...initialJobData };
     },
-    setupEdit:(state)=>{
-      state.isEdit = true
+    setupEdit: (state) => {
+      state.isEdit = true;
     },
-    cancelEdit:(state)=>{
-      state.isEdit = false
-    }
+    cancelEdit: (state) => {
+      state.isEdit = false;
+    },
   },
   extraReducers: {
     [addJob.pending]: (state) => {
