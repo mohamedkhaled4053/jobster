@@ -6,6 +6,7 @@ import { FormRow } from '../../components';
 import FormRowSelect from '../../components/FormRowSelect';
 import {
   addJob,
+  cancelEdit,
   changeJobData,
   clearJobData,
 } from '../../features/newJobSlice';
@@ -14,7 +15,7 @@ export default function AddJob() {
   // get data from store
   let {
     user: { user },
-    newJob: { isLoading, position, company, jobLocation, status, jobType },
+    newJob: { isLoading, position, company, jobLocation, status, jobType, isEdit },
   } = useSelector((store) => store);
 
   // define variables
@@ -104,6 +105,16 @@ export default function AddJob() {
             >
               {isLoading ? 'loading...' : 'submit'}
             </button>
+            {isEdit && (
+              <button
+                type="button"
+                className="btn btn-block btn-danger"
+                disabled={isLoading}
+                onClick={() => dispatch(cancelEdit())}
+              >
+                {isLoading ? 'loading...' : 'cancel'}
+              </button>
+            )}
           </div>
         </div>
       </form>

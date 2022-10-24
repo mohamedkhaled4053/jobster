@@ -43,6 +43,9 @@ let jobSlice = createSlice({
     },
     setupEdit:(state)=>{
       state.isEdit = true
+    },
+    cancelEdit:(state)=>{
+      state.isEdit = false
     }
   },
   extraReducers: {
@@ -60,5 +63,5 @@ let jobSlice = createSlice({
   },
 });
 
-export let { changeJobData, clearJobData, setupEdit } = jobSlice.actions;
+export let { changeJobData, clearJobData, setupEdit, cancelEdit } = jobSlice.actions;
 export default jobSlice.reducer;

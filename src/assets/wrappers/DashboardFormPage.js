@@ -31,7 +31,7 @@ const Wrapper = styled.section`
   }
   .btn-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat( auto-fit, minmax(50px, 1fr) );
     column-gap: 1rem;
     align-self: flex-end;
     margin-top: 0.5rem;
