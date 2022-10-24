@@ -1,4 +1,5 @@
 import AllJobsList from '../../components/AllJobsList';
+import EditWindow from '../../components/EditWindow';
 import SearchJobFrom from '../../components/SearchJobFrom';
 
 export default function Alljob() {
@@ -6,6 +7,7 @@ export default function Alljob() {
     <>
       <SearchJobFrom />
       <AllJobsList />
+      <EditWindow />
     </>
   );
 }

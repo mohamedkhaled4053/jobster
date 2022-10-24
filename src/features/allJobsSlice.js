@@ -9,6 +9,7 @@ let initialState = {
   jobs: [],
   numOfPages: 0,
   totalJobs: 0,
+  isEdit: false
 };
 
 export let getAllJobs = createAsyncThunk('getAllJobs', async (_, thunkAPI) => {
@@ -34,6 +35,11 @@ export let deleteJob = createAsyncThunk('deleteJob', async (id, thunkAPI) => {
 let AlljobsSlice = createSlice({
   name: 'allJobs',
   initialState,
+  reducers:{
+    setupEdit:(state)=>{
+      state.isEdit = true
+    }
+  },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
       state.isLoading = true;
@@ -51,4 +57,5 @@ let AlljobsSlice = createSlice({
   },
 });
 
+export const {setupEdit} = AlljobsSlice.actions
 export default AlljobsSlice.reducer;

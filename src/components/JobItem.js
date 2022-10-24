@@ -4,7 +4,7 @@ import JobInfo from './JobInfo';
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
 import moment from 'moment'
 import { useDispatch } from 'react-redux';
-import { deleteJob } from '../features/allJobsSlice';
+import { deleteJob, setupEdit } from '../features/allJobsSlice';
 
 export default function JobItem({
   _id:id,
@@ -36,9 +36,9 @@ export default function JobItem({
         </div>
         <footer>
           <div className="actions">
-            <a className="btn edit-btn" href="/add-job" data-ur1313m3t="true">
+            <button type='button' className="btn edit-btn" onClick={()=>dispatch(setupEdit())}>
               Edit
-            </a>
+            </button>
             <button type="button" className="btn delete-btn" onClick={()=>dispatch(deleteJob(id))}>
               delete
             </button>
