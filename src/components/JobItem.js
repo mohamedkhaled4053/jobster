@@ -4,7 +4,8 @@ import JobInfo from './JobInfo';
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
 import moment from 'moment'
 import { useDispatch } from 'react-redux';
-import { deleteJob, setupEdit } from '../features/allJobsSlice';
+import { deleteJob } from '../features/allJobsSlice';
+import { setupEdit } from '../features/newJobSlice';
 
 export default function JobItem({
   _id:id,

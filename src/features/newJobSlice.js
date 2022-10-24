@@ -15,6 +15,7 @@ let initialJobData = {
 
 let initialState = {
   isLoading: false,
+  isEdit : false ,
   ...initialJobData,
 };
 
@@ -40,6 +41,9 @@ let jobSlice = createSlice({
     clearJobData: (state) => {
       return { ...state, ...initialJobData };
     },
+    setupEdit:(state)=>{
+      state.isEdit = true
+    }
   },
   extraReducers: {
     [addJob.pending]: (state) => {
@@ -56,5 +60,5 @@ let jobSlice = createSlice({
   },
 });
 
-export let { changeJobData, clearJobData } = jobSlice.actions;
+export let { changeJobData, clearJobData, setupEdit } = jobSlice.actions;
 export default jobSlice.reducer;

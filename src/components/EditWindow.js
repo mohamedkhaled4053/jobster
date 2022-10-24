@@ -4,7 +4,7 @@ import Wrapper from '../assets/wrappers/EditWindow';
 import AddJob from '../pages/dashboard/AddJob';
 
 export default function EditWindow() {
-  let { isEdit } = useSelector((store) => store.allJobs);
+  let { isEdit } = useSelector((store) => store.newJob);
   return (
     <Wrapper>
       <div className={`sidebar-container ${isEdit && 'show-sidebar'}`}>
