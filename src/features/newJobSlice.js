@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
 import checkForUnauthorized from '../utils/checkForUnauthorized';
+import { getAllJobs } from './allJobsSlice';
 
 // initial data alone to deal with it without dealing with loading state if needed
 let initialJobData = {
@@ -21,7 +22,7 @@ let initialState = {
 };
 
 // asynk thunks
-export let addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
+export const addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
   try {
     let res = await customFetch.post('/jobs', job, authHeader(thunkAPI));
     return res.data;
@@ -32,7 +33,19 @@ export let addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
   }
 });
 
-let jobSlice = createSlice({
+export const editJob = createAsyncThunk('editJob', async ({ id, job }, thunkAPI) => {
+  try {
+    thunkAPI.dispatch(cancelEdit())
+    await customFetch.patch(`/jobs/${id}`, job, authHeader(thunkAPI));
+    thunkAPI.dispatch(getAllJobs())
+    return
+  } catch (error) {
+    thunkAPI.dispatch(cancelEdit())
+    return checkForUnauthorized(error, thunkAPI);
+  }
+});
+
+const jobSlice = createSlice({
   name: 'job',
   initialState,
   reducers: {
@@ -43,7 +56,7 @@ let jobSlice = createSlice({
       return { ...state, ...initialJobData };
     },
     setupEdit: (state, { payload }) => {
-      return {...state, ...payload, isEdit: true}
+      return { ...state, ...payload, isEdit: true };
     },
     cancelEdit: (state) => {
       state.isEdit = false;
@@ -58,6 +71,17 @@ let jobSlice = createSlice({
       toast.success('job created');
     },
     [addJob.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload);
+    },
+    [editJob.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editJob.fulfilled]: (state) => {
+      state.isLoading = false;
+      toast.success('job modified');
+    },
+    [editJob.rejected]: (state, { payload }) => {
       state.isLoading = false;
       toast.error(payload);
     },

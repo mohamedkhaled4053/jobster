@@ -5,13 +5,19 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import Btn from '../../components/Btn';
 import FormRowSelect from '../../components/FormRowSelect';
-import { addJob, cancelEdit, changeJobData, clearJobData } from '../../features/newJobSlice';
+import {
+  addJob,
+  cancelEdit,
+  changeJobData,
+  clearJobData,
+  editJob,
+} from '../../features/newJobSlice';
 
 export default function AddJob() {
   // get data from store
   let {
     user: { user },
-    newJob: { isLoading, position, company, jobLocation, status, jobType, isEdit },
+    newJob: { isLoading, position, company, jobLocation, status, jobType, isEdit, editId },
   } = useSelector((store) => store);
 
   // define variables
@@ -33,7 +39,16 @@ export default function AddJob() {
       toast.error('please provide all required data');
       return;
     }
-    dispatch(addJob({ position, company, jobLocation, status, jobType }));
+    if (isEdit) {
+      dispatch(
+        editJob({
+          id: editId,
+          job: { position, company, jobLocation, status, jobType },
+        })
+      );
+    } else {
+      dispatch(addJob({ position, company, jobLocation, status, jobType }));
+    }
     clearInputs();
   }
 
