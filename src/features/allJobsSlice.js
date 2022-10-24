@@ -34,6 +34,11 @@ export let deleteJob = createAsyncThunk('deleteJob', async (id, thunkAPI) => {
 let AlljobsSlice = createSlice({
   name: 'allJobs',
   initialState,
+  reducers: {
+    loadingOn: (state) => {
+      state.isLoading = true;
+    },
+  },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
       state.isLoading = true;
@@ -51,4 +56,5 @@ let AlljobsSlice = createSlice({
   },
 });
 
+export const { loadingOn } = AlljobsSlice.actions;
 export default AlljobsSlice.reducer;
