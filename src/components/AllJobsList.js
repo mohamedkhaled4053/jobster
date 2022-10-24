@@ -27,7 +27,6 @@ export default function AllJobsList() {
     <Wrapper>
       <h5>{totalJobs} jobs found</h5>
       <div className="jobs">
-        <JobItem />
         {jobs.map((job) => (
           <JobItem key={job._id} {...job} />
         ))}

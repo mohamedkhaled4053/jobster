@@ -21,7 +21,7 @@ export default function JobItem({
   return (
     <Wrapper>
       <header>
-        <div className="main-icon">{company && company[0]}</div>
+        <div className="main-icon">{company[0]}</div>
         <div className="info">
           <h5>{position}</h5>
           <p>{company}</p>
