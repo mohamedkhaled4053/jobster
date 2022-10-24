@@ -3,8 +3,11 @@ import Wrapper from '../assets/wrappers/Job';
 import JobInfo from './JobInfo';
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
 import moment from 'moment'
+import { useDispatch } from 'react-redux';
+import { deleteJob } from '../features/allJobsSlice';
 
 export default function JobItem({
+  _id:id,
   company,
   position,
   status,
@@ -12,6 +15,8 @@ export default function JobItem({
   jobLocation,
   createdAt,
 }) {
+
+  let dispatch = useDispatch()
 
   return (
     <Wrapper>
@@ -34,7 +39,7 @@ export default function JobItem({
             <a className="btn edit-btn" href="/add-job" data-ur1313m3t="true">
               Edit
             </a>
-            <button type="button" className="btn delete-btn">
+            <button type="button" className="btn delete-btn" onClick={()=>dispatch(deleteJob(id))}>
               delete
             </button>
           </div>

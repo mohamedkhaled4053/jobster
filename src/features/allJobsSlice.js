@@ -15,10 +15,18 @@ export let getAllJobs = createAsyncThunk('getAllJobs', async (_, thunkAPI) => {
   let url = '/jobs';
   try {
     let res = await customFetch.get(url, authHeader(thunkAPI));
-    console.log(res.data);
     return res.data;
   } catch (error) {
-    console.log(error.response);
+    return checkForUnauthorized(error, thunkAPI);
+  }
+});
+
+export let deleteJob = createAsyncThunk('deleteJob', async (id, thunkAPI) => {
+  try {
+    let res = await customFetch.delete(`/jobs/${id}`, authHeader(thunkAPI));
+    toast.success(res.data.msg);
+    thunkAPI.dispatch(getAllJobs());
+  } catch (error) {
     return checkForUnauthorized(error, thunkAPI);
   }
 });
@@ -37,8 +45,8 @@ let AlljobsSlice = createSlice({
       return { ...state, isLoading: false, jobs, numOfPages, totalJobs };
     },
     [getAllJobs.rejected]: (state, { payload }) => {
-        state.isLoading = false
-        toast.error(payload)
+      state.isLoading = false;
+      toast.error(payload);
     },
   },
 });
