@@ -1,14 +1,13 @@
 import React from 'react';
 import Wrapper from '../assets/wrappers/JobInfo';
-import { HiOutlineChevronDoubleLeft } from 'react-icons/hi';
 
-export default function JobInfo() {
+export default function JobInfo({icon, info}) {
   return (
     <Wrapper>
       <span className="icon">
-        <HiOutlineChevronDoubleLeft />
+       {icon}
       </span>
-      <span className="text">kfs </span>
+      <span className="text">{info} </span>
     </Wrapper>
   );
 }

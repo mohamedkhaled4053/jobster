@@ -1,23 +1,33 @@
 import React from 'react';
 import Wrapper from '../assets/wrappers/Job';
 import JobInfo from './JobInfo';
+import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
+import moment from 'moment'
 
-export default function JobItem() {
+export default function JobItem({
+  company,
+  position,
+  status,
+  jobType,
+  jobLocation,
+  createdAt,
+}) {
+
   return (
     <Wrapper>
       <header>
-        <div className="main-icon">z</div>
+        <div className="main-icon">{company && company[0]}</div>
         <div className="info">
-          <h5>zzzzzzzz</h5>
-          <p>zzzzzzzz</p>
+          <h5>{position}</h5>
+          <p>{company}</p>
         </div>
       </header>
       <div className="content">
         <div className="content-center">
-          <JobInfo />
-          <JobInfo />
-          <JobInfo />
-          <div className="status pending">pending</div>
+          <JobInfo icon={<FaLocationArrow />} info={jobLocation} />
+          <JobInfo icon={<FaCalendarAlt />} info={moment(createdAt).format("MMM Do YY")} />
+          <JobInfo icon={<FaBriefcase />} info={jobType} />
+          <div className="status pending">{status}</div>
         </div>
         <footer>
           <div className="actions">
