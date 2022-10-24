@@ -27,8 +27,6 @@ export const addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
     let res = await customFetch.post('/jobs', job, authHeader(thunkAPI));
     return res.data;
   } catch (error) {
-    // if error is because user unauthorized then logout
-    // else reject normally
     return checkForUnauthorized(error, thunkAPI);
   }
 });
@@ -37,11 +35,11 @@ export const editJob = createAsyncThunk('editJob', async ({ id, job }, thunkAPI)
   try {
     await customFetch.patch(`/jobs/${id}`, job, authHeader(thunkAPI));
     // get jobs after updating the job
-    thunkAPI.dispatch(getAllJobs())
+    thunkAPI.dispatch(getAllJobs());
     toast.success('job modified');
-    return
+    return;
   } catch (error) {
-    thunkAPI.dispatch(loadingOff())
+    thunkAPI.dispatch(loadingOff());
     return checkForUnauthorized(error, thunkAPI);
   }
 });

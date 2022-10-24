@@ -50,9 +50,9 @@ export default function AddJob() {
         })
       );
       // cancel edit window
-      dispatch(cancelEdit())
+      dispatch(cancelEdit());
       // loading while updating
-      dispatch(loadingOn())
+      dispatch(loadingOn());
     } else {
       dispatch(addJob({ position, company, jobLocation, status, jobType }));
     }

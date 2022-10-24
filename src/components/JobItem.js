@@ -20,7 +20,7 @@ export default function JobItem({
 
   // helper functions
   function startEditJob() {
-    dispatch(setupEdit({ editId:id, company, position, status, jobType, jobLocation }));
+    dispatch(setupEdit({ editId: id, company, position, status, jobType, jobLocation }));
   }
 
   return (
