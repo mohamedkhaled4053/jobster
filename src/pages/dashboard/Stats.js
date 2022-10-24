@@ -1,3 +1,11 @@
+import ChartContainer from '../../components/ChartContainer';
+import StatsContainer from '../../components/StatsContainer';
+
 export default function Stats() {
-    return <h1> Stats</h1>
+  return (
+    <>
+      <StatsContainer />
+      {/* <ChartContainer /> */}
+    </>
+  );
 }
