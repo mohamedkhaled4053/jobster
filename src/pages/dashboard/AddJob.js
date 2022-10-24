@@ -5,6 +5,7 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
 import Btn from '../../components/Btn';
 import FormRowSelect from '../../components/FormRowSelect';
+import { loadingOn } from '../../features/allJobsSlice';
 import {
   addJob,
   cancelEdit,
@@ -39,26 +40,33 @@ export default function AddJob() {
       toast.error('please provide all required data');
       return;
     }
+    // edit a job or add a new job
     if (isEdit) {
+      // edit job
       dispatch(
         editJob({
           id: editId,
           job: { position, company, jobLocation, status, jobType },
         })
       );
+      // cancel edit window
+      dispatch(cancelEdit())
+      // loading while updating
+      dispatch(loadingOn())
     } else {
       dispatch(addJob({ position, company, jobLocation, status, jobType }));
     }
+
     clearInputs();
   }
 
+  // clear inputs and return location to use location
   function clearInputs() {
     dispatch(clearJobData());
     dispatch(changeJobData({ name: 'jobLocation', value: user.location }));
   }
 
   // effects
-  // use user location as default jobLocation
   useEffect(() => {
     clearInputs();
     // eslint-disable-next-line

@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
 import checkForUnauthorized from '../utils/checkForUnauthorized';
-import { getAllJobs, loadingOn } from './allJobsSlice';
+import { getAllJobs } from './allJobsSlice';
 
 // initial data alone to deal with it without dealing with loading state if needed
 let initialJobData = {
@@ -35,13 +35,12 @@ export const addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
 
 export const editJob = createAsyncThunk('editJob', async ({ id, job }, thunkAPI) => {
   try {
-    thunkAPI.dispatch(cancelEdit())
-    thunkAPI.dispatch(loadingOn())
     await customFetch.patch(`/jobs/${id}`, job, authHeader(thunkAPI));
+    // get jobs after updating the job
     thunkAPI.dispatch(getAllJobs())
+    toast.success('job modified');
     return
   } catch (error) {
-    thunkAPI.dispatch(cancelEdit())
     return checkForUnauthorized(error, thunkAPI);
   }
 });
@@ -75,15 +74,7 @@ const jobSlice = createSlice({
       state.isLoading = false;
       toast.error(payload);
     },
-    [editJob.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [editJob.fulfilled]: (state) => {
-      state.isLoading = false;
-      toast.success('job modified');
-    },
-    [editJob.rejected]: (state, { payload }) => {
-      state.isLoading = false;
+    [editJob.rejected]: (_, { payload }) => {
       toast.error(payload);
     },
   },
