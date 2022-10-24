@@ -1,13 +1,14 @@
 import React from 'react'
 
-export default function Btn({isLoading, handleClick, type}) {
+export default function Btn({isLoading, handleClick, name}) {
   return (
     <button
-    className={`btn btn-block ${type}-btn`}
+    type='button'
+    className={`btn btn-block ${name}-btn`}
     disabled={isLoading}
     onClick={handleClick}
   >
-    {isLoading ? 'loading...' : type}
+    {isLoading ? 'loading...' : name}
   </button>
   )
 }

@@ -99,15 +99,15 @@ export default function AddJob() {
             handleChange={handleChange}
           />
           <div className="btn-container">
-            <Btn type="clear" isLoading={isLoading} handleClick={clearInputs} />
+            <Btn name="clear" isLoading={isLoading} handleClick={clearInputs} />
             <Btn
-              type="submit"
+              name="submit"
               isLoading={isLoading}
               handleClick={handleSubmit}
             />
             {isEdit && (
               <Btn
-                type="cancel"
+                name="cancel"
                 isLoading={isLoading}
                 handleClick={() => dispatch(cancelEdit())}
               />
