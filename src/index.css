@@ -177,11 +177,11 @@ ul {
   font-size: 1.25rem;
   padding: 0.5rem 1.25rem;
 }
-.btn-danger {
+.btn-danger, .cancel-btn {
   background: var(--red-light);
   color: var(--red-dark);
 }
-.btn-danger:hover {
+.btn-danger:hover, .cancel-btn:hover {
   background: var(--red-dark);
   color: var(--white);
 }

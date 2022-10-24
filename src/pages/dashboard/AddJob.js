@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../../components';
+import Btn from '../../components/Btn';
 import FormRowSelect from '../../components/FormRowSelect';
 import {
   addJob,
@@ -15,7 +16,15 @@ export default function AddJob() {
   // get data from store
   let {
     user: { user },
-    newJob: { isLoading, position, company, jobLocation, status, jobType, isEdit },
+    newJob: {
+      isLoading,
+      position,
+      company,
+      jobLocation,
+      status,
+      jobType,
+      isEdit,
+    },
   } = useSelector((store) => store);
 
   // define variables
@@ -54,7 +63,7 @@ export default function AddJob() {
 
   return (
     <Wrapper>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form">
         <h3>add job</h3>
         <div className="form-center">
           <FormRow
@@ -90,30 +99,18 @@ export default function AddJob() {
             handleChange={handleChange}
           />
           <div className="btn-container">
-            <button
-              type="button"
-              className="btn btn-block clear-btn"
-              disabled={isLoading}
-              onClick={clearInputs}
-            >
-              {isLoading ? 'loading...' : 'clear'}
-            </button>
-            <button
+            <Btn type="clear" isLoading={isLoading} handleClick={clearInputs} />
+            <Btn
               type="submit"
-              className="btn btn-block submit-btn"
-              disabled={isLoading}
-            >
-              {isLoading ? 'loading...' : 'submit'}
-            </button>
+              isLoading={isLoading}
+              handleClick={handleSubmit}
+            />
             {isEdit && (
-              <button
-                type="button"
-                className="btn btn-block btn-danger"
-                disabled={isLoading}
-                onClick={() => dispatch(cancelEdit())}
-              >
-                {isLoading ? 'loading...' : 'cancel'}
-              </button>
+              <Btn
+                type="cancel"
+                isLoading={isLoading}
+                handleClick={() => dispatch(cancelEdit())}
+              />
             )}
           </div>
         </div>
