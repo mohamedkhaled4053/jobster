@@ -57,9 +57,19 @@ export default function Register() {
     );
   }
 
+  function loginAsTestUser() {
+    dispatch(
+      userRequest({
+        user: { email: 'testUser@test.com', password: 'secret' },
+        process: 'login',
+        message: 'Welcome Back',
+      })
+    );
+  }
+
   // if user loged in then go to dashboard
-  if(user){
-    return <Navigate to='/'/>
+  if (user) {
+    return <Navigate to="/" />;
   }
 
   return (
@@ -101,6 +111,7 @@ export default function Register() {
           type="button"
           className="btn btn-block btn-hipster"
           disabled={isLoading}
+          onClick={loginAsTestUser}
         >
           {isLoading ? 'loading...' : 'demo app'}
         </button>
