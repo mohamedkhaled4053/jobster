@@ -38,6 +38,9 @@ let AlljobsSlice = createSlice({
     loadingOn: (state) => {
       state.isLoading = true;
     },
+    loadingOff: (state) => {
+      state.isLoading = false;
+    },
   },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
@@ -56,5 +59,5 @@ let AlljobsSlice = createSlice({
   },
 });
 
-export const { loadingOn } = AlljobsSlice.actions;
+export const { loadingOn, loadingOff } = AlljobsSlice.actions;
 export default AlljobsSlice.reducer;

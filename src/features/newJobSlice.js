@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
 import checkForUnauthorized from '../utils/checkForUnauthorized';
-import { getAllJobs } from './allJobsSlice';
+import { getAllJobs, loadingOff } from './allJobsSlice';
 
 // initial data alone to deal with it without dealing with loading state if needed
 let initialJobData = {
@@ -41,6 +41,7 @@ export const editJob = createAsyncThunk('editJob', async ({ id, job }, thunkAPI)
     toast.success('job modified');
     return
   } catch (error) {
+    thunkAPI.dispatch(loadingOff())
     return checkForUnauthorized(error, thunkAPI);
   }
 });
