@@ -2,9 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
-import { FormRow } from '../../components';
-import Btn from '../../components/Btn';
-import FormRowSelect from '../../components/FormRowSelect';
+import { FormRow, Btn, FormRowSelect } from '../../components';
 import { loadingOn } from '../../features/allJobsSlice';
 import {
   addJob,

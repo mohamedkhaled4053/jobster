@@ -1,9 +1,7 @@
-import Landing from './pages/Landing';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Error, Register } from './pages';
+import { Error, Landing, Register } from './pages';
 import { ToastContainer } from 'react-toastify';
-import { AddJob, Alljobs, Dashboard, Profile, Stats } from './pages/dashboard';
-import PrivateRoute from './pages/dashboard/PrivateRoute';
+import { AddJob, Alljobs, Dashboard, PrivateRoute, Profile, Stats } from './pages/dashboard';
 
 function App() {
   return (

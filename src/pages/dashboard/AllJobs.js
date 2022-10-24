@@ -1,6 +1,4 @@
-import AllJobsList from '../../components/AllJobsList';
-import EditWindow from '../../components/EditWindow';
-import SearchJobFrom from '../../components/SearchJobFrom';
+import { AllJobsList, EditWindow, SearchJobFrom } from "../../components";
 
 export default function Alljob() {
   return (

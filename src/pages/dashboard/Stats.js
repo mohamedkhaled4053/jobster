@@ -1,11 +1,14 @@
-import ChartContainer from '../../components/ChartContainer';
-import StatsContainer from '../../components/StatsContainer';
+import { ChartContainer, StatsContainer } from "../../components";
+
 
 export default function Stats() {
   return (
     <>
       <StatsContainer />
-      {/* <ChartContainer /> */}
+
+
+      {/* hide this for now */}
+      {false && <ChartContainer />}
     </>
   );
 }
