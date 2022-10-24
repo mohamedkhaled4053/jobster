@@ -45,6 +45,9 @@ let AlljobsSlice = createSlice({
       state.isLoading = false;
       toast.error(payload);
     },
+    [deleteJob.pending]: (state) => {
+      state.isLoading = true;
+    },
   },
 });
 
