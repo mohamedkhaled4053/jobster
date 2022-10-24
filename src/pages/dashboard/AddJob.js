@@ -64,7 +64,7 @@ export default function AddJob() {
   return (
     <Wrapper>
       <form className="form">
-        <h3>add job</h3>
+        <h3>{isEdit ? 'edit job': 'add job'}</h3>
         <div className="form-center">
           <FormRow
             name="position"
