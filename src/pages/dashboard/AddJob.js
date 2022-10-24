@@ -52,12 +52,13 @@ export default function AddJob() {
 
   function clearInputs() {
     dispatch(clearJobData());
+    dispatch(changeJobData({ name: 'jobLocation', value: user.location }));
   }
 
   // effects
   // use user location as default jobLocation
   useEffect(() => {
-    dispatch(changeJobData({ name: 'jobLocation', value: user.location }));
+    clearInputs()
     // eslint-disable-next-line
   }, []);
 
