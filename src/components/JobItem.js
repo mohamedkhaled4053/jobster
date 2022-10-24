@@ -18,6 +18,11 @@ export default function JobItem({
 }) {
   let dispatch = useDispatch();
 
+  // helper functions
+  function startEditJob() {
+    dispatch(setupEdit({ editId:id, company, position, status, jobType, jobLocation }));
+  }
+
   return (
     <Wrapper>
       <header>
@@ -36,7 +41,7 @@ export default function JobItem({
         </div>
         <footer>
           <div className="actions">
-            <button type="button" className="btn edit-btn" onClick={() => dispatch(setupEdit())}>
+            <button type="button" className="btn edit-btn" onClick={startEditJob}>
               Edit
             </button>
             <button

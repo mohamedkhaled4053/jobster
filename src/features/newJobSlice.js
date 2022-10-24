@@ -16,10 +16,11 @@ let initialJobData = {
 let initialState = {
   isLoading: false,
   isEdit: false,
+  editId: '',
   ...initialJobData,
 };
 
-// asynk thunk
+// asynk thunks
 export let addJob = createAsyncThunk('job/addJob', async (job, thunkAPI) => {
   try {
     let res = await customFetch.post('/jobs', job, authHeader(thunkAPI));
@@ -41,8 +42,8 @@ let jobSlice = createSlice({
     clearJobData: (state) => {
       return { ...state, ...initialJobData };
     },
-    setupEdit: (state) => {
-      state.isEdit = true;
+    setupEdit: (state, { payload }) => {
+      return {...state, ...payload, isEdit: true}
     },
     cancelEdit: (state) => {
       state.isEdit = false;
