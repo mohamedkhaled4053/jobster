@@ -1,10 +1,27 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Wrapper from '../assets/wrappers/SearchContainer';
+import { changeSearchFilters, clearSearchFilters } from '../features/allJobsSlice';
 import FormRow from './FormRow';
 import FormRowSelect from './FormRowSelect';
 
 export default function SearchJobFrom() {
-  function handleChange() {}
+  // get data from the store
+  let { search, status, type, sort } = useSelector((store) => store.allJobs.filters);
+  // prepare options data for select inputs
+  let jobTypesList = ['all', 'full-time', 'part-time', 'remote', 'internship'];
+  let statusList = ['all', 'pending', 'interview', 'declined'];
+  let sortList = ['latest','oldest', 'a-z', 'z-a']
+
+  let dispatch = useDispatch()
+
+  // helper functions
+  function handleChange(e) {
+    let name = e.target.name
+    let value = e.target.value
+    dispatch(changeSearchFilters({name, value}))
+  }
+
 
   return (
     <Wrapper>
@@ -14,29 +31,29 @@ export default function SearchJobFrom() {
           <FormRow
             name="search"
             type="text"
-            value=""
+            value={search}
             handleChange={handleChange}
           />
           <FormRowSelect
             name="status"
-            value=""
-            list={[1, 2, 3]}
+            value={status}
+            list={statusList}
             handleChange={handleChange}
           />
           <FormRowSelect
-            name="status"
-            value=""
-            list={[1, 2, 3]}
+            name="type"
+            value={type}
+            list={jobTypesList}
             handleChange={handleChange}
           />
           <FormRowSelect
-            name="status"
-            value=""
-            list={[1, 2, 3]}
+            name="sort"
+            value={sort}
+            list={sortList}
             handleChange={handleChange}
           />
 
-          <button className="btn btn-block btn-danger">clear filters</button>
+          <button type='button' className="btn btn-block btn-danger" onClick={()=>dispatch(clearSearchFilters())}>clear filters</button>
         </div>
       </form>
     </Wrapper>
