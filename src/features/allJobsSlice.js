@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
@@ -27,9 +28,17 @@ export let getAllJobs = createAsyncThunk(
     if (search) {
       url = url + `&search=${search}`;
     }
+    // cancel http request if aborted
+    let source = axios.CancelToken.source();
+    thunkAPI.signal.addEventListener('abort', () => {
+      source.cancel();
+    });
     // fetch data
     try {
-      let res = await customFetch.get(url, authHeader(thunkAPI));
+      let res = await customFetch.get(url, {
+        ...authHeader(thunkAPI),
+        cancelToken: source.token,
+      });
       return res.data;
     } catch (error) {
       return checkForUnauthorized(error, thunkAPI);
@@ -74,9 +83,11 @@ let AlljobsSlice = createSlice({
     ) => {
       return { ...state, isLoading: false, jobs, numOfPages, totalJobs };
     },
-    [getAllJobs.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      toast.error(payload);
+    [getAllJobs.rejected]: (state, { payload, meta }) => {
+      if (!meta.aborted) {
+        state.isLoading = false;
+        toast.error(payload);
+      }
     },
     [deleteJob.pending]: (state) => {
       state.isLoading = true;

@@ -16,7 +16,12 @@ export default function AllJobsList() {
   // effects
   // get all jobs every time filters change
   useEffect(() => {
-    dispatch(getAllJobs(filters));
+    let promise = dispatch(getAllJobs(filters));
+
+    return () => {
+      // clean up
+      promise.abort();
+    };
     // eslint-disable-next-line
   }, [filters]);
 
