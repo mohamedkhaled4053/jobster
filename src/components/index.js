@@ -15,6 +15,8 @@ import SearchJobFrom from './SearchJobFrom';
 import SidebarLinks from './SidebarLinks';
 import StatItem from './StatItem';
 import StatsContainer from './StatsContainer';
+import BarChart from './BarChart';
+import AreaChart from './AreaChart';
 
 export {
   Logo,
@@ -34,4 +36,6 @@ export {
   SidebarLinks,
   StatItem,
   StatsContainer,
+  BarChart,
+  AreaChart,
 };
