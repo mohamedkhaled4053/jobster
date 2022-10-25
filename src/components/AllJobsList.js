@@ -7,7 +7,7 @@ import { getAllJobs } from '../features/allJobsSlice';
 
 export default function AllJobsList() {
   // get data from the store
-  let { isLoading, jobs, numOfPages, totalJobs, filters } = useSelector(
+  let { isLoading, jobs, numOfPages, page, totalJobs, filters } = useSelector(
     (store) => store.allJobs
   );
 
@@ -32,13 +32,17 @@ export default function AllJobsList() {
   return (
     <Wrapper>
       <h5>{totalJobs} jobs found</h5>
-      {numOfPages > 1 && <PageBtnContainer numOfPages={numOfPages} />}
+      {numOfPages > 1 && (
+        <PageBtnContainer numOfPages={numOfPages} page={page} />
+      )}
       <div className="jobs">
         {jobs.map((job) => (
           <JobItem key={job._id} {...job} />
         ))}
       </div>
-      {numOfPages > 1 && <PageBtnContainer numOfPages={numOfPages} />}
+      {numOfPages > 1 && (
+        <PageBtnContainer numOfPages={numOfPages} page={page} />
+      )}
     </Wrapper>
   );
 }
