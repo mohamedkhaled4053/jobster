@@ -10,7 +10,7 @@ export default function AllJobsList() {
   let { isLoading, jobs, numOfPages, totalJobs, filters } = useSelector(
     (store) => store.allJobs
   );
-  
+
   let dispatch = useDispatch();
 
   // effects
@@ -32,12 +32,13 @@ export default function AllJobsList() {
   return (
     <Wrapper>
       <h5>{totalJobs} jobs found</h5>
+      {numOfPages > 1 && <PageBtnContainer numOfPages={numOfPages} />}
       <div className="jobs">
         {jobs.map((job) => (
           <JobItem key={job._id} {...job} />
         ))}
       </div>
-      <PageBtnContainer numOfPages={numOfPages} />
+      {numOfPages > 1 && <PageBtnContainer numOfPages={numOfPages} />}
     </Wrapper>
   );
 }

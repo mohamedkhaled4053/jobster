@@ -7,11 +7,15 @@ const Wrapper = styled.section`
   }
   & > h5 {
     font-weight: 700;
+    text-align: center;
+    color: green;
+    margin: 0
   }
   .jobs {
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 2rem;
+    margin: 2rem 0
   }
   @media (min-width: 992px) {
     .jobs {
