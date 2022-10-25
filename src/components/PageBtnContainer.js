@@ -4,10 +4,11 @@ import {
   HiOutlineChevronDoubleRight,
   HiOutlineChevronDoubleLeft,
 } from 'react-icons/hi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changePage } from '../features/allJobsSlice';
 
-export default function PageBtnContainer({ numOfPages, page }) {
+export default function PageBtnContainer() {
+  let {page, numOfPages} = useSelector(store => store.allJobs)
   let dispatch = useDispatch();
 
   // prepare array of numbers to iterate over it to create buttons
@@ -24,7 +25,7 @@ export default function PageBtnContainer({ numOfPages, page }) {
     }
     dispatch(changePage(newPage));
   }
-  function previousPape() {
+  function previousPage() {
     let newPage = page - 1
     if (newPage < 1) {
       newPage = numOfPages
@@ -32,9 +33,14 @@ export default function PageBtnContainer({ numOfPages, page }) {
     dispatch(changePage(newPage));
   }
 
+  // don't display button if we only have one page
+  if (numOfPages <= 1) {
+    return null
+  }
+
   return (
     <Wrapper>
-      <button type="button" className="prev-btn" onClick={previousPape}>
+      <button type="button" className="prev-btn" onClick={previousPage}>
         <HiOutlineChevronDoubleLeft />
         prev
       </button>
