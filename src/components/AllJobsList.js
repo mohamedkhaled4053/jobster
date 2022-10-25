@@ -7,17 +7,18 @@ import { getAllJobs } from '../features/allJobsSlice';
 
 export default function AllJobsList() {
   // get data from the store
-  let { isLoading, jobs, numOfPages, totalJobs } = useSelector(
+  let { isLoading, jobs, numOfPages, totalJobs, filters } = useSelector(
     (store) => store.allJobs
   );
   
   let dispatch = useDispatch();
 
   // effects
+  // get all jobs every time filters change
   useEffect(() => {
-    dispatch(getAllJobs());
+    dispatch(getAllJobs(filters));
     // eslint-disable-next-line
-  }, []);
+  }, [filters]);
 
   if (isLoading) {
     return <div className="loading"></div>;

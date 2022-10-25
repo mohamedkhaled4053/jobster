@@ -19,15 +19,23 @@ let initialState = {
   filters: initialSearchFilters,
 };
 
-export let getAllJobs = createAsyncThunk('getAllJobs', async (_, thunkAPI) => {
-  let url = '/jobs';
-  try {
-    let res = await customFetch.get(url, authHeader(thunkAPI));
-    return res.data;
-  } catch (error) {
-    return checkForUnauthorized(error, thunkAPI);
+export let getAllJobs = createAsyncThunk(
+  'getAllJobs',
+  async ({ search, status, type, sort }, thunkAPI) => {
+    // setup the url
+    let url = `/jobs?status=${status}&jobType=${type}&sort=${sort}`;
+    if (search) {
+      url = url + `&search=${search}`;
+    }
+    // fetch data
+    try {
+      let res = await customFetch.get(url, authHeader(thunkAPI));
+      return res.data;
+    } catch (error) {
+      return checkForUnauthorized(error, thunkAPI);
+    }
   }
-});
+);
 
 export let deleteJob = createAsyncThunk('deleteJob', async (id, thunkAPI) => {
   try {
