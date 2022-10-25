@@ -7,6 +7,7 @@ let initialState = {
   pending: 0,
   interview: 0,
   declined: 0,
+  chartData: [],
 };
 
 export const getStats = createAsyncThunk('getStats', async (_, thunkApi) => {
@@ -24,7 +25,7 @@ const statsSlice = createSlice({
   extraReducers: {
     [getStats.fulfilled]: (state, { payload }) => {
       let { defaultStats, monthlyApplications } = payload;
-      return { ...state, ...defaultStats };
+      return { ...state, ...defaultStats, chartData: monthlyApplications };
     },
   },
 });
