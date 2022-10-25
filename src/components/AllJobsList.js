@@ -16,7 +16,7 @@ export default function AllJobsList() {
   // effects
   // get all jobs every time filters change
   useEffect(() => {
-    let promise = dispatch(getAllJobs({filters,page}));
+    let promise = dispatch(getAllJobs());
 
     return () => {
       // clean up

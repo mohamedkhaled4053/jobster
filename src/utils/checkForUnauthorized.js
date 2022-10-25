@@ -3,6 +3,7 @@ import { logoutuser } from '../features/userSlice';
 // if error is because user unauthorized then logout
 // else reject normally
 export default function checkForUnauthorized(error, thunkAPI) {
+  console.log(error.response);
   if (error.response.status === 401) {
     thunkAPI.dispatch(logoutuser('unauthorized! please login'));
     return thunkAPI.rejectWithValue();
