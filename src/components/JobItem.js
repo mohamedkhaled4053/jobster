@@ -37,7 +37,7 @@ export default function JobItem({
           <JobInfo icon={<FaLocationArrow />} info={jobLocation} />
           <JobInfo icon={<FaCalendarAlt />} info={moment(createdAt).format('MMM Do YYYY')} />
           <JobInfo icon={<FaBriefcase />} info={jobType} />
-          <div className="status pending">{status}</div>
+          <div className={`status ${status}`}>{status}</div>
         </div>
         <footer>
           <div className="actions">
