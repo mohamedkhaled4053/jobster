@@ -18,36 +18,38 @@ let initialState = {
   numOfPages: 0,
   totalJobs: 0,
   page: 1,
+  displayMode: 'pagination',
+  onePageJobs: [],
   filters: initialSearchFilters,
 };
 
-export let getAllJobs = createAsyncThunk(
-  'getAllJobs',
-  async (_, thunkAPI) => {
-    // get data needed from the store
-    let {page, filters:{search, status, type, sort}} = thunkAPI.getState().allJobs
-    // setup the url
-    let url = `/jobs?status=${status}&jobType=${type}&sort=${sort}&page=${page}`;
-    if (search) {
-      url = url + `&search=${search}`;
-    }
-    // cancel http request if aborted
-    let source = axios.CancelToken.source();
-    thunkAPI.signal.addEventListener('abort', () => {
-      source.cancel();
-    });
-    // fetch data
-    try {
-      let res = await customFetch.get(url, {
-        ...authHeader(thunkAPI),
-        cancelToken: source.token,
-      });
-      return res.data;
-    } catch (error) {
-      return checkForUnauthorized(error, thunkAPI);
-    }
+export let getAllJobs = createAsyncThunk('getAllJobs', async (_, thunkAPI) => {
+  // get data needed from the store
+  let {
+    page,
+    filters: { search, status, type, sort },
+  } = thunkAPI.getState().allJobs;
+  // setup the url
+  let url = `/jobs?status=${status}&jobType=${type}&sort=${sort}&page=${page}`;
+  if (search) {
+    url = url + `&search=${search}`;
   }
-);
+  // cancel http request if aborted
+  let source = axios.CancelToken.source();
+  thunkAPI.signal.addEventListener('abort', () => {
+    source.cancel();
+  });
+  // fetch data
+  try {
+    let res = await customFetch.get(url, {
+      ...authHeader(thunkAPI),
+      cancelToken: source.token,
+    });
+    return res.data;
+  } catch (error) {
+    return checkForUnauthorized(error, thunkAPI);
+  }
+});
 
 export let deleteJob = createAsyncThunk('deleteJob', async (id, thunkAPI) => {
   try {
@@ -88,13 +90,23 @@ let AlljobsSlice = createSlice({
   },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
+      if(state.displayMode !== 'pagination'){
+        return state
+      }
       state.isLoading = true;
     },
     [getAllJobs.fulfilled]: (
       state,
       { payload: { jobs, numOfPages, totalJobs } }
     ) => {
-      return { ...state, isLoading: false, jobs, numOfPages, totalJobs };
+      return {
+        ...state,
+        isLoading: false,
+        jobs,
+        numOfPages,
+        totalJobs,
+        onePageJobs: [...state.onePageJobs, ...jobs],
+      };
     },
     [getAllJobs.rejected]: (state, { payload, meta }) => {
       if (!meta.aborted) {

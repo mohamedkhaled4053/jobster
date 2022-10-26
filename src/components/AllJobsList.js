@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import Wrapper from '../assets/wrappers/JobsContainer';
-import JobItem from './JobItem';
-import PageBtnContainer from './PageBtnContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteJob, getAllJobs } from '../features/allJobsSlice';
+import {  getAllJobs } from '../features/allJobsSlice';
+import PaginationJobsList from './PaginationJobsList';
+import OnePageJobsList from './OnePageJobsList';
 
 export default function AllJobsList() {
   // get data from the store
-  let { isLoading, jobs, totalJobs, page, filters } = useSelector(
-    (store) => store.allJobs
-  );
+  let { isLoading, totalJobs, page, filters, displayMode } =
+    useSelector((store) => store.allJobs);
 
   let dispatch = useDispatch();
 
@@ -39,15 +38,11 @@ export default function AllJobsList() {
   return (
     <Wrapper>
       <h5>{totalJobs} jobs found</h5>
-      <PageBtnContainer />
-
-      <div className="jobs">
-        {jobs.map((job) => (
-          <JobItem key={job._id} {...job} />
-        ))}
-      </div>
-
-      <PageBtnContainer />
+      {displayMode === 'pagination' ? (
+        <PaginationJobsList />
+      ) : (
+        <OnePageJobsList  />
+      )}
     </Wrapper>
   );
 }
