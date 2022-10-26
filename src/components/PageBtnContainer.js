@@ -28,7 +28,6 @@ export default function PageBtnContainer() {
     end = numOfPages;
   }
   btnArray = btnArray.slice(start, end);
-  console.log(start);
 
   //////////////////////////
 
@@ -36,19 +35,15 @@ export default function PageBtnContainer() {
     dispatch(changePage(newPage));
   }
 
-  function nextPage() {
-    let newPage = page + 1;
+  // on click dots-btn we jump pages
+  function jumpPages(newPage) {
     if (newPage > numOfPages) {
+      newPage = numOfPages
+    }
+    if (newPage < 1) {
       newPage = 1;
     }
-    dispatch(changePage(newPage));
-  }
-  function previousPage() {
-    let newPage = page - 1;
-    if (newPage < 1) {
-      newPage = numOfPages;
-    }
-    dispatch(changePage(newPage));
+    setPage(newPage)
   }
 
   // don't display button if we only have one page
@@ -58,14 +53,18 @@ export default function PageBtnContainer() {
 
   return (
     <Wrapper>
-      <button type="button" className="prev-btn" onClick={previousPage}>
+      <button type="button" className="prev-btn" onClick={()=>setPage(page-1)}>
         <HiOutlineChevronDoubleLeft />
         prev
       </button>
 
       <div className="btn-container">
         {start > 0 && (
-          <button type="button" className={`pageBtn dots-btn`}>
+          <button
+            type="button"
+            className={`pageBtn dots-btn`}
+            onClick={() => jumpPages(page - maxNumOfBtns)}
+          >
             ...
           </button>
         )}
@@ -80,13 +79,17 @@ export default function PageBtnContainer() {
           </button>
         ))}
         {end < numOfPages && (
-          <button type="button" className={`pageBtn dots-btn`}>
+          <button
+            type="button"
+            className={`pageBtn dots-btn`}
+            onClick={() => jumpPages(page + maxNumOfBtns)}
+          >
             ...
           </button>
         )}
       </div>
 
-      <button type="button" className="next-btn" onClick={nextPage}>
+      <button type="button" className="next-btn" onClick={()=>setPage(page+1)}>
         next
         <HiOutlineChevronDoubleRight />
       </button>

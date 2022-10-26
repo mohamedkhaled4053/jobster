@@ -76,8 +76,14 @@ let AlljobsSlice = createSlice({
     clearSearchFilters: (state) => {
       return { ...state, filters: initialSearchFilters };
     },
-    changePage: (state, { payload }) => {
-      state.page = payload;
+    changePage: (state, { payload: page }) => {
+      if (page > state.numOfPages) {
+        page = 1;
+      }
+      if (page < 1) {
+        page = state.numOfPages;
+      }
+      state.page = page;
     },
   },
   extraReducers: {
