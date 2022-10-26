@@ -17,10 +17,12 @@ export default function PageBtnContainer() {
 
   // spicify pagination start and end
   let maxNumOfBtns = 9;
-  let start = null
-  let end = null
+  let startBtn = null;
+  let endBtn = null;
   if (numOfPages >= 9) {
     let { start, end } = paginationLimits(page, numOfPages, maxNumOfBtns);
+    startBtn = start;
+    endBtn = end;
     btnArray = btnArray.slice(start, end);
   }
 
@@ -56,7 +58,7 @@ export default function PageBtnContainer() {
       </button>
 
       <div className="btn-container">
-        {(start && start > 0) && (
+        {( startBtn > 0 && startBtn) && (
           <button
             type="button"
             className={`pageBtn dots-btn`}
@@ -75,7 +77,7 @@ export default function PageBtnContainer() {
             {btnNum}
           </button>
         ))}
-        {(end && end < numOfPages) && (
+        {endBtn && endBtn < numOfPages && (
           <button
             type="button"
             className={`pageBtn dots-btn`}
