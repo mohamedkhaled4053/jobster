@@ -1,18 +1,23 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Wrapper = styled.section`
-  height: 6rem;
+  @media (min-width: 800px) {
+    height: 6rem;
+  }
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
   gap: 1rem;
   .btn-container {
-    background: var(--primary-100);
     border-radius: var(--borderRadius);
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 5px;
+    justify-content: center;
   }
   .pageBtn {
-    background: transparent;
+    background: var(--primary-100);
     border-color: transparent;
     width: 50px;
     height: 40px;
@@ -24,7 +29,7 @@ const Wrapper = styled.section`
     cursor: pointer;
   }
   .dots-btn {
-    cursor: auto
+    cursor: auto;
   }
   .active {
     background: var(--primary-500);
@@ -52,5 +57,5 @@ const Wrapper = styled.section`
     background: var(--primary-500);
     color: var(--white);
   }
-`
-export default Wrapper
+`;
+export default Wrapper;
