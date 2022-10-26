@@ -11,6 +11,7 @@ import {
   clearJobData,
   editJob,
 } from '../../features/newJobSlice';
+import mockJobsData from '../../utils/mockJobsData';
 
 export default function AddJob() {
   // get data from store
@@ -72,10 +73,8 @@ export default function AddJob() {
 
   // // this is for testing remove it later
   // useEffect(()=>{
-  //   for (let i = 1; i <= 20; i++) {
-      
-  //   dispatch(addJob({ position:i, company: i, jobLocation, status, jobType }))
-      
+  //   for (const job of mockJobsData) {
+  //     dispatch(addJob(job));
   //   }
   // },[])
 
