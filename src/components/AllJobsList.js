@@ -3,7 +3,7 @@ import Wrapper from '../assets/wrappers/JobsContainer';
 import JobItem from './JobItem';
 import PageBtnContainer from './PageBtnContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllJobs } from '../features/allJobsSlice';
+import { deleteJob, getAllJobs } from '../features/allJobsSlice';
 
 export default function AllJobsList() {
   // get data from the store
@@ -24,6 +24,13 @@ export default function AllJobsList() {
     };
     // eslint-disable-next-line
   }, [filters, page]);
+
+  // // this is for testing remove it later
+  // useEffect(() => {
+  //   for (const job of jobs) {
+  //     dispatch(deleteJob(job._id));
+  //   }
+  // }, []);
 
   if (isLoading) {
     return <div className="loading"></div>;

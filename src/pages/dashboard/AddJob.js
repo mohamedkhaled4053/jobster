@@ -70,6 +70,15 @@ export default function AddJob() {
     // eslint-disable-next-line
   }, []);
 
+  // // this is for testing remove it later
+  // useEffect(()=>{
+  //   for (let i = 1; i <= 20; i++) {
+      
+  //   dispatch(addJob({ position:i, company: i, jobLocation, status, jobType }))
+      
+  //   }
+  // },[])
+
   return (
     <Wrapper>
       <form className="form">
