@@ -23,6 +23,9 @@ const Wrapper = styled.section`
     border-radius: var(--borderRadius);
     cursor: pointer;
   }
+  .dots-btn {
+    cursor: auto
+  }
   .active {
     background: var(--primary-500);
     color: var(--white);
