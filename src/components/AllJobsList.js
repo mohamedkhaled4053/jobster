@@ -22,7 +22,7 @@ export default function AllJobsList() {
       promise.abort();
     };
     // eslint-disable-next-line
-  }, [filters, page]);
+  }, [filters, page, displayMode]);
 
   // // this is for testing remove it later
   // useEffect(() => {

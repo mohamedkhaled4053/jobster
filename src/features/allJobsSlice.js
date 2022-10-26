@@ -18,7 +18,7 @@ let initialState = {
   numOfPages: 0,
   totalJobs: 0,
   page: 1,
-  displayMode: 'paginationd',
+  displayMode: 'pagination',
   onePageJobs: [],
   filters: initialSearchFilters,
 };
@@ -74,9 +74,16 @@ let AlljobsSlice = createSlice({
     changeSearchFilters: (state, { payload: { name, value } }) => {
       state.filters = { ...state.filters, [name]: value };
       state.page = 1;
+      state.onePageJobs = [];
     },
     clearSearchFilters: (state) => {
-      return { ...state, filters: initialSearchFilters };
+      state.filters = initialSearchFilters
+      state.onePageJobs = []
+      if(state.page === 1 && state.displayMode !== 'pagination'){
+        state.page = 0
+      } else {
+        state.page = 1
+      }
     },
     changePage: (state, { payload: page }) => {
       if (page > state.numOfPages) {
@@ -86,6 +93,11 @@ let AlljobsSlice = createSlice({
         page = state.numOfPages;
       }
       state.page = page;
+    },
+    editDisplayMode: (state, { payload }) => {
+      state.displayMode = payload;
+      state.onePageJobs = [];
+      state.page = 1;
     },
   },
   extraReducers: {
@@ -102,7 +114,10 @@ let AlljobsSlice = createSlice({
         jobs,
         numOfPages,
         totalJobs,
-        onePageJobs: [...state.onePageJobs, ...jobs],
+        onePageJobs:
+          state.displayMode === 'pagination'
+            ? state.onePageJobs
+            : [...state.onePageJobs, ...jobs],
       };
     },
     [getAllJobs.rejected]: (state, { payload, meta }) => {
@@ -127,5 +142,6 @@ export const {
   changeSearchFilters,
   clearSearchFilters,
   changePage,
+  editDisplayMode,
 } = AlljobsSlice.actions;
 export default AlljobsSlice.reducer;

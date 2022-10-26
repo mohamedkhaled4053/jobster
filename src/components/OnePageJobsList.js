@@ -47,7 +47,7 @@ export default function OnePageJobsList() {
           <JobItem key={job._id} {...job} />
         ))}
       </div>
-      {page !== numOfPages && (
+      {(page !== numOfPages || jobs.length === 0) && (
         <div className="loading" ref={loadingContainer}></div>
       )}
     </>

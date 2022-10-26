@@ -1,27 +1,39 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Wrapper from '../assets/wrappers/SearchContainer';
-import { changeSearchFilters, clearSearchFilters } from '../features/allJobsSlice';
+import {
+  changeSearchFilters,
+  clearSearchFilters,
+  editDisplayMode,
+} from '../features/allJobsSlice';
 import FormRow from './FormRow';
 import FormRowSelect from './FormRowSelect';
 
 export default function SearchJobFrom() {
   // get data from the store
-  let { search, status, type, sort } = useSelector((store) => store.allJobs.filters);
+  let {
+    displayMode,
+    filters: { search, status, type, sort },
+  } = useSelector((store) => store.allJobs);
+
   // prepare options data for select inputs
   let jobTypesList = ['all', 'full-time', 'part-time', 'remote', 'internship'];
   let statusList = ['all', 'pending', 'interview', 'declined'];
-  let sortList = ['latest','oldest', 'a-z', 'z-a']
+  let sortList = ['latest', 'oldest', 'a-z', 'z-a'];
 
-  let dispatch = useDispatch()
+  let dispatch = useDispatch();
 
   // helper functions
   function handleChange(e) {
-    let name = e.target.name
-    let value = e.target.value
-    dispatch(changeSearchFilters({name, value}))
+    let name = e.target.name;
+    let value = e.target.value;
+    dispatch(changeSearchFilters({ name, value }));
   }
 
+  function ChangeDisplayMode(e) {
+    let value = e.target.value;
+    dispatch(editDisplayMode(value));
+  }
 
   return (
     <Wrapper>
@@ -53,7 +65,21 @@ export default function SearchJobFrom() {
             handleChange={handleChange}
           />
 
-          <button type='button' className="btn btn-block btn-danger" onClick={()=>dispatch(clearSearchFilters())}>clear filters</button>
+          <button
+            type="button"
+            className="btn btn-block btn-danger"
+            onClick={() => {
+              dispatch(clearSearchFilters());
+            }}
+          >
+            clear filters
+          </button>
+          <FormRowSelect 
+            name="display mode"
+            value={displayMode}
+            list={['pagination', 'infinite scroll']}
+            handleChange={ChangeDisplayMode}
+          />
         </div>
       </form>
     </Wrapper>
