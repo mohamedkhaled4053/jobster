@@ -73,6 +73,7 @@ export default function AddJob() {
 
   // // this is for testing remove it later
   // useEffect(()=>{
+  //   console.log('addMock');
   //   for (const job of mockJobsData) {
   //     dispatch(addJob(job));
   //   }

@@ -30,7 +30,7 @@ export default function AllJobsList() {
   //   for (const job of jobs) {
   //     dispatch(deleteJob(job._id));
   //   }
-  // }, []);
+  // }, [page]);
 
   if (isLoading) {
     return <div className="loading"></div>;
