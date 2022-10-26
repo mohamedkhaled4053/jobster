@@ -18,7 +18,7 @@ let initialState = {
   numOfPages: 0,
   totalJobs: 0,
   page: 1,
-  displayMode: 'pagination',
+  displayMode: 'paginationd',
   onePageJobs: [],
   filters: initialSearchFilters,
 };
@@ -90,9 +90,6 @@ let AlljobsSlice = createSlice({
   },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
-      if(state.displayMode !== 'pagination'){
-        return state
-      }
       state.isLoading = true;
     },
     [getAllJobs.fulfilled]: (

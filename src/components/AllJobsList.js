@@ -31,7 +31,7 @@ export default function AllJobsList() {
   //   }
   // }, [page]);
 
-  if (isLoading) {
+  if (isLoading && displayMode === 'pagination' ) {
     return <div className="loading"></div>;
   }
 

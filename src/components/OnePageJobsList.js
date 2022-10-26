@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePage } from '../features/allJobsSlice';
+import { changePage, loadingOn } from '../features/allJobsSlice';
 import JobItem from './JobItem';
 
 export default function OnePageJobsList() {
   let {
     page,
+    isLoading,
     numOfPages,
     onePageJobs: jobs,
   } = useSelector((store) => store.allJobs);
@@ -22,21 +23,22 @@ export default function OnePageJobsList() {
     return rec.top < window.innerHeight;
   }
 
+  // if we reached the end of the page then get the next page to desplay
   function handleScroll() {
-    if (isInViewport(loadingContainer.current)) {
-      console.log('a');
+    if (isInViewport(loadingContainer.current) && !isLoading) {
+      dispatch(loadingOn());
       dispatch(changePage(page + 1));
     }
   }
 
+  // effects
   useEffect(() => {
-    // begin loading new photos if loading element in viewport
     document.addEventListener('scroll', handleScroll);
     return () => {
       document.removeEventListener('scroll', handleScroll);
     };
     // eslint-disable-next-line
-  }, [page]);
+  }, [isLoading]);
 
   return (
     <>
@@ -48,7 +50,6 @@ export default function OnePageJobsList() {
       {page !== numOfPages && (
         <div className="loading" ref={loadingContainer}></div>
       )}
-      ;
     </>
   );
 }
