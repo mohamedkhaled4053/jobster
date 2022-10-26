@@ -13,12 +13,16 @@ export default function PageBtnContainer() {
   let dispatch = useDispatch();
 
   // prepare array of numbers to iterate over it to create buttons
-  let arrayOfPages = Array.from({ length: numOfPages }, (_, index) => index + 1);
+  let btnArray = Array.from({ length: numOfPages }, (_, index) => index + 1);
 
   // spicify pagination start and end
   let maxNumOfBtns = 9;
-  let { start, end } = paginationLimits(page, numOfPages, maxNumOfBtns);
-  let btnArray = arrayOfPages.slice(start, end);
+  let start = null
+  let end = null
+  if (numOfPages >= 9) {
+    let { start, end } = paginationLimits(page, numOfPages, maxNumOfBtns);
+    btnArray = btnArray.slice(start, end);
+  }
 
   function setPage(newPage) {
     dispatch(changePage(newPage));
@@ -52,7 +56,7 @@ export default function PageBtnContainer() {
       </button>
 
       <div className="btn-container">
-        {start > 0 && (
+        {(start && start > 0) && (
           <button
             type="button"
             className={`pageBtn dots-btn`}
@@ -71,7 +75,7 @@ export default function PageBtnContainer() {
             {btnNum}
           </button>
         ))}
-        {end < numOfPages && (
+        {(end && end < numOfPages) && (
           <button
             type="button"
             className={`pageBtn dots-btn`}

@@ -1,4 +1,4 @@
-export default function paginationLimits({page, numOfPages, maxNumOfBtns}) {
+export default function paginationLimits(page, numOfPages, maxNumOfBtns) {
     let start = page - 5;
     let end = page + 4;
     if (start < 0) {
@@ -9,5 +9,6 @@ export default function paginationLimits({page, numOfPages, maxNumOfBtns}) {
       start = numOfPages - maxNumOfBtns;
       end = numOfPages;
     }
+    console.log(start, end);
     return {start, end}
   }
