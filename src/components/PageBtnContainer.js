@@ -24,10 +24,11 @@ export default function PageBtnContainer() {
     start = 0;
   }
   if (end > numOfPages) {
-    start = -maxNumOfBtns;
+    start = numOfPages - maxNumOfBtns;
     end = numOfPages;
   }
   btnArray = btnArray.slice(start, end);
+  console.log(start);
 
   //////////////////////////
 
@@ -64,10 +65,7 @@ export default function PageBtnContainer() {
 
       <div className="btn-container">
         {start > 0 && (
-          <button
-            type="button"
-            className={`pageBtn dots-btn`}
-          >
+          <button type="button" className={`pageBtn dots-btn`}>
             ...
           </button>
         )}
@@ -82,10 +80,7 @@ export default function PageBtnContainer() {
           </button>
         ))}
         {end < numOfPages && (
-          <button
-            type="button"
-            className={`pageBtn dots-btn`}
-          >
+          <button type="button" className={`pageBtn dots-btn`}>
             ...
           </button>
         )}
