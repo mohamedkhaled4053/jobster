@@ -24,7 +24,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<Error />} />
       </Routes>
-      <ToastContainer />
+      <ToastContainer position='top-center' pauseOnFocusLoss={false}/>
     </BrowserRouter>
   );
 }
