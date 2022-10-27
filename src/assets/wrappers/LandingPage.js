@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Wrapper = styled.main`
   nav {
@@ -13,7 +13,7 @@ const Wrapper = styled.main`
     min-height: calc(100vh - var(--nav-height));
     display: grid;
     align-items: center;
-    margin-top: -3rem;
+    margin-top: 20px;
   }
   h1 {
     font-weight: 700;
@@ -31,10 +31,23 @@ const Wrapper = styled.main`
     .page {
       grid-template-columns: 1fr 1fr;
       column-gap: 3rem;
+      margin-top: 0px;
     }
     .main-img {
       display: block;
+      width: 75%;
+      margin: auto;
+      object-fit: cover;
     }
   }
-`
-export default Wrapper
+  @media (max-width: 992px) {
+    .info {
+      text-align: center;
+    }
+    p {
+      margin: 0 auto 1.5rem;
+      max-width: 40em;
+    }
+  }
+`;
+export default Wrapper;

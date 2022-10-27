@@ -1,29 +1,24 @@
-import { Logo } from '../components';
 import main from '../assets/images/main.svg';
 import Wrapper from '../assets/wrappers/LandingPage';
-import { Link } from 'react-router-dom';
+import Register from '../components/Register';
 
 export default function Landing() {
   return (
     <Wrapper>
-      <nav>
-        <Logo />
-      </nav>
       <div className="container page">
         <div className="info">
           <h1>
             job <span>tracking</span> app
           </h1>
           <p>
-            Crucifix narwhal street art asymmetrical, humblebrag tote bag pop-up
-            fixie raclette taxidermy craft beer. Brunch bitters synth, VHS
-            crucifix heirloom meggings bicycle rights.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque,
+            laborum sequi molestiae, asperiores autem quo ut ad quaerat
+            voluptates alias suscipit fugit quasi commodi ea dolorum in, at ex
+            earum.
           </p>
-          <Link className="btn btn-hero" to="/register">
-            Login/Register
-          </Link>
+          <img src={main} alt="job hunt" className="img main-img" />
         </div>
-        <img src={main} alt="job hunt" className="img main-img" />
+        <Register />
       </div>
     </Wrapper>
   );

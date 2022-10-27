@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Wrapper from '../assets/wrappers/RegisterPage';
-import { Logo, FormRow } from '../components';
+import { Logo, FormRow } from '.';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
