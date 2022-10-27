@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Wrapper from '../assets/wrappers/SearchContainer';
 import {
@@ -34,6 +34,13 @@ export default function SearchJobFrom() {
     let value = e.target.value;
     dispatch(editDisplayMode(value));
   }
+
+  useEffect(()=>{
+
+      dispatch(clearSearchFilters())
+      dispatch(editDisplayMode('pagination'));
+      
+  },[])
 
   return (
     <Wrapper>

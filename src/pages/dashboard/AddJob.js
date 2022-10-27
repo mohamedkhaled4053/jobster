@@ -67,7 +67,9 @@ export default function AddJob() {
 
   // effects
   useEffect(() => {
-    clearInputs();
+
+      clearInputs();
+
     // eslint-disable-next-line
   }, []);
 
