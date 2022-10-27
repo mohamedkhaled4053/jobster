@@ -24,13 +24,6 @@ export default function AllJobsList() {
     // eslint-disable-next-line
   }, [filters, page, displayMode]);
 
-  // // this is for testing remove it later
-  // useEffect(() => {
-  //   for (const job of jobs) {
-  //     dispatch(deleteJob(job._id));
-  //   }
-  // }, [page]);
-
   if (isLoading && displayMode === 'pagination' ) {
     return <div className="loading"></div>;
   }

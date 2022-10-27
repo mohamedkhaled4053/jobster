@@ -39,7 +39,7 @@ export default function SearchJobFrom() {
 
       dispatch(clearSearchFilters())
       dispatch(editDisplayMode('pagination'));
-      
+      // eslint-disable-next-line
   },[])
 
   return (

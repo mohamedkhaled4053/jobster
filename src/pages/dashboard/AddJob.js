@@ -11,7 +11,6 @@ import {
   clearJobData,
   editJob,
 } from '../../features/newJobSlice';
-import mockJobsData from '../../utils/mockJobsData';
 
 export default function AddJob() {
   // get data from store
@@ -72,14 +71,6 @@ export default function AddJob() {
 
     // eslint-disable-next-line
   }, []);
-
-  // // this is for testing remove it later
-  // useEffect(()=>{
-  //   console.log('addMock');
-  //   for (const job of mockJobsData) {
-  //     dispatch(addJob(job));
-  //   }
-  // },[])
 
   return (
     <Wrapper>
