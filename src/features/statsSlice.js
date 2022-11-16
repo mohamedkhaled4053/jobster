@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import authHeader from '../utils/authHeader';
 import { customFetch } from '../utils/axios';
 import checkForUnauthorized from '../utils/checkForUnauthorized';
@@ -15,7 +16,7 @@ export const getStats = createAsyncThunk('getStats', async (_, thunkApi) => {
     let res = await customFetch('/jobs/stats', authHeader(thunkApi));
     return res.data;
   } catch (error) {
-    return checkForUnauthorized();
+    return checkForUnauthorized(error, thunkApi);
   }
 });
 
@@ -26,6 +27,9 @@ const statsSlice = createSlice({
     [getStats.fulfilled]: (state, { payload }) => {
       let { defaultStats, monthlyApplications } = payload;
       return { ...state, ...defaultStats, chartData: monthlyApplications };
+    },
+    [getStats.rejected]: (state, { payload }) => {
+      toast.error(payload);
     },
   },
 });
